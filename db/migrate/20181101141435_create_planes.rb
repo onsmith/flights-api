@@ -4,9 +4,6 @@ class CreatePlanes < ActiveRecord::Migration[5.1]
       ## Plane name
       t.string :name, null: false
 
-      ## URL to photo of seatmap
-      t.string :seatmap_url
-
       ## Might belong to a student
       t.belongs_to :user, index: true
 

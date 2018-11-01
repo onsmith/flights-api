@@ -7,6 +7,9 @@ class CreateInstances < ActiveRecord::Migration[5.1]
       ## Date of flight
       t.date :date, null: false
 
+      ## Cancellation status
+      t.boolean :is_cancelled, null: false, default: false
+
       ## Might belong to a student
       t.belongs_to :user, index: true
 

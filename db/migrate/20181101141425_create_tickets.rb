@@ -8,6 +8,12 @@ class CreateTickets < ActiveRecord::Migration[5.1]
       t.integer :age,         null: false
       t.string  :gender,      null: false
 
+      ## Price paid for the ticket
+      t.float :is_purchased, null: false, default: false
+
+      ## Price paid for the ticket
+      t.float :price_paid
+
       ## Seat on the plane the ticket is good for
       t.belongs_to :seat, index: true
 

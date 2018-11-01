@@ -15,7 +15,7 @@ class CreateTickets < ActiveRecord::Migration[5.1]
       t.float :price_paid
 
       ## Seat on the plane the ticket is good for
-      t.belongs_to :seat, index: true
+      t.belongs_to :seat, index: true, null: false
 
       ## Flight instance the ticket is good for
       t.belongs_to :instance, index: true, null: false
@@ -26,8 +26,11 @@ class CreateTickets < ActiveRecord::Migration[5.1]
       ## Might belong to a student
       t.belongs_to :user, index: true
 
+      ## Client-defined info
+      t.text :info
+
       ## Always include timestamps
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

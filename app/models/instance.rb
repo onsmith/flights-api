@@ -8,4 +8,12 @@ class Instance < ApplicationRecord
 
   ## Validations
   validates :flight, presence: true
+
+  validate :flight_must_be_accessible
+
+  def flight_must_be_accessible
+    if flight.user.present? && flight.user != user
+      errors.add(:flight_id, "does not exist")
+    end
+  end
 end

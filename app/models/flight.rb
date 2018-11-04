@@ -21,28 +21,40 @@ class Flight < ApplicationRecord
   validates :arrives_at, presence: true
   validates :number,     presence: true
 
-  validate :related_records_must_be_accessible,
+  validate :plane_must_be_accessible,
+           :departure_must_be_accessible,
+           :arrival_must_be_accessible,
+           :next_flight_must_be_accessible,
+           :airline_must_be_accessible,
            :flight_segments_must_stop_at_same_airport
 
-  def related_records_must_be_accessible
+  def plane_must_be_accessible
     if plane.present? && plane.user.present? && plane.user != user
-      errors.add(:plane_id, "is inaccessible or does not exist")
+      errors.add(:plane_id, "does not exist")
     end
+  end
 
+  def departure_must_be_accessible
     if departure.user.present? && departure.user != user
-      errors.add(:departure_id, "is inaccessible or does not exist")
+      errors.add(:departure_id, "does not exist")
     end
+  end
 
+  def arrival_must_be_accessible
     if arrival.user.present? && arrival.user != user
-      errors.add(:arrival_id, "is inaccessible or does not exist")
+      errors.add(:arrival_id, "does not exist")
     end
+  end
 
+  def next_flight_must_be_accessible
     if next_flight.present? && next_flight.user.present? && next_flight.user != user
-      errors.add(:next_flight_id, "is inaccessible or does not exist")
+      errors.add(:next_flight_id, "does not exist")
     end
+  end
 
+  def airline_must_be_accessible
     if airline.present? && airline.user.present? && airline.user != user
-      errors.add(:airline_id, "is inaccessible or does not exist")
+      errors.add(:airline_id, "does not exist")
     end
   end
 

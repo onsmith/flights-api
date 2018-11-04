@@ -14,4 +14,26 @@ class Ticket < ApplicationRecord
   validates :gender,     presence: true
   validates :seat,       presence: true
   validates :instance,   presence: true
+
+  validate :instance_must_be_accessible,
+           :itinerary_must_be_accessible,
+           :seat_must_be_accessible
+
+  def instance_must_be_accessible
+    if instance.user.present? && instance.user != user
+      errors.add(:instance_id, "does not exist")
+    end
+  end
+
+  def itinerary_must_be_accessible
+    if itinerary.present? && itinerary.user.present? && itinerary.user != user
+      errors.add(:itinerary_id, "does not exist")
+    end
+  end
+
+  def seat_must_be_accessible
+    if seat.present? && seat.user.present? && seat.user != user
+      errors.add(:seat_id, "does not exist")
+    end
+  end
 end

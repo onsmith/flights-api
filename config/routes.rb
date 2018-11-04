@@ -2,12 +2,12 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
 
-  # Authentication
+  ## Authentication
   devise_for :users, only: []
   resources  :sessions, only: [:create, :destroy]
 
 
-  # RESTful resources
+  ## RESTful resources
   resources :airlines,    only: [:index, :show, :create, :update, :destroy]
   resources :airports,    only: [:index, :show, :create, :update, :destroy]
   resources :flights,     only: [:index, :show, :create, :update, :destroy]
@@ -16,4 +16,13 @@ Rails.application.routes.draw do
   resources :planes,      only: [:index, :show, :create, :update, :destroy]
   resources :seats,       only: [:index, :show, :create, :update, :destroy]
   resources :tickets,     only: [:index, :show, :create, :update, :destroy]
+
+
+  ## Nested resource routes
+  get '/instance/:id/prices',  to: 'instances#price_index'
+  get '/instance/:id/seats',   to: 'instances#seat_index'
+
+
+  ## Clear data route
+  delete 'reset', to: 'users#reset'
 end

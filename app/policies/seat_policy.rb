@@ -1,0 +1,2 @@
+class SeatPolicy < ApplicationPolicy
+end

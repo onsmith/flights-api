@@ -1,0 +1,2 @@
+class ItineraryPolicy < ApplicationPolicy
+end

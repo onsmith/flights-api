@@ -1,0 +1,2 @@
+class AirportPolicy < ApplicationPolicy
+end

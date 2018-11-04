@@ -3,7 +3,7 @@ class Seat < ApplicationRecord
   belongs_to :plane
   has_many   :tickets
 
-  belongs_to :user
+  belongs_to :user, optional: true
 
 
   ## Validations

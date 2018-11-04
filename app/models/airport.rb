@@ -3,7 +3,7 @@ class Airport < ApplicationRecord
   has_many :arrivals,   class_name: :Flight
   has_many :departures, class_name: :Flight
 
-  belongs_to :user
+  belongs_to :user, optional: true
 
 
   ## Validations

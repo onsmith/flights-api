@@ -16,8 +16,8 @@ class CreateFlights < ActiveRecord::Migration[5.1]
       t.belongs_to :plane,   index: true
       t.belongs_to :airline, index: true
 
-      ## Next segment, to be used by multi-hop flights
-      t.belongs_to :next_segment, index: true
+      ## Next flight segment, to be used by multi-hop flights
+      t.belongs_to :next_flight, index: true
 
       ## Might belong to a student
       t.belongs_to :user, index: true

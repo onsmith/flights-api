@@ -1,0 +1,2 @@
+class InstancePolicy < ApplicationPolicy
+end

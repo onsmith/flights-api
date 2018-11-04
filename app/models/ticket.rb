@@ -1,10 +1,10 @@
 class Ticket < ApplicationRecord
   ## Relationships
   belongs_to :instance
-  belongs_to :itinerary
+  belongs_to :itinerary, optional: true
   belongs_to :seat
 
-  belongs_to :user
+  belongs_to :user, optional: true
 
 
   ## Validations

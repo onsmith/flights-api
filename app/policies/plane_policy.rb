@@ -1,0 +1,2 @@
+class PlanePolicy < ApplicationPolicy
+end

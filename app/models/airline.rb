@@ -3,7 +3,7 @@ class Airline < ApplicationRecord
   has_many :planes
   has_many :flights
 
-  belongs_to :user
+  belongs_to :user, optional: true
 
 
   ## Validations

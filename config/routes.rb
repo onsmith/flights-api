@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   ## Authentication
   devise_for :users, only: []
+  post   '/users',     to: 'users#create'
   post   '/sessions',  to: 'sessions#create'
   delete '/sessions',  to: 'sessions#destroy'
   match  '/passwords', to: 'passwords#update', via: [:put, :patch]
@@ -21,8 +22,8 @@ Rails.application.routes.draw do
 
 
   ## Nested resource routes
-  get '/instance/:id/prices', to: 'instances#price_index'
-  get '/instance/:id/seats',  to: 'instances#seat_index'
+  #get '/instance/:id/prices', to: 'instances#price_index'
+  #get '/instance/:id/seats',  to: 'instances#seat_index'
 
 
   ## Clear data route

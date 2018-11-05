@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181104040803) do
+ActiveRecord::Schema.define(version: 20181105231235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 20181104040803) do
   end
 
   create_table "seats", force: :cascade do |t|
-    t.string "class"
+    t.string "cabin"
     t.integer "row", null: false
     t.string "number", null: false
     t.boolean "is_window", default: false, null: false

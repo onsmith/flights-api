@@ -14,7 +14,7 @@ class Seat < ApplicationRecord
   validate :plane_must_be_accessible
 
   def plane_must_be_accessible
-    if plane.user.present? && plane.user != user
+    if plane.present? && plane.user.present? && plane.user != user
       errors.add(:plane_id, "does not exist")
     end
   end

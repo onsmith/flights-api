@@ -18,6 +18,9 @@ class User < ActiveRecord::Base
 
 
   # Define these methods to make devise happy
+  def remember_me
+    true
+  end
   def email
     username
   end

@@ -4,7 +4,9 @@ Rails.application.routes.draw do
 
   ## Authentication
   devise_for :users, only: []
-  resources  :sessions, only: [:create, :destroy]
+  post   '/sessions',  to: 'sessions#create'
+  delete '/sessions',  to: 'sessions#destroy'
+  match  '/passwords', to: 'passwords#update', via: [:put, :patch]
 
 
   ## RESTful resources
@@ -19,10 +21,10 @@ Rails.application.routes.draw do
 
 
   ## Nested resource routes
-  get '/instance/:id/prices',  to: 'instances#price_index'
-  get '/instance/:id/seats',   to: 'instances#seat_index'
+  get '/instance/:id/prices', to: 'instances#price_index'
+  get '/instance/:id/seats',  to: 'instances#seat_index'
 
 
   ## Clear data route
-  delete 'reset', to: 'users#reset'
+  delete '/data', to: 'databases#destroy'
 end

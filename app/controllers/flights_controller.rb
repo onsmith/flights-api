@@ -68,6 +68,7 @@ class FlightsController < ApplicationController
         'arrival_id',
         'next_flight_id',
         'airline_id',
+        'info',
       )
     end
 

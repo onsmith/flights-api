@@ -62,6 +62,7 @@ class ItinerariesController < ApplicationController
       params.require(:itinerary).permit(
         'confirmation_code',
         'email',
+        'info',
       )
     end
 

@@ -8,6 +8,9 @@ class ApplicationController < ActionController::API
   # See: https://github.com/elabs/pundit#installation
   include Pundit
 
+  # For: devise
+  include ActionController::Cookies
+
 
 
   ## Handle Pundit unauthorized exceptions

@@ -63,6 +63,7 @@ class PlanesController < ApplicationController
         'name',
         'seatmap_url',
         'airline_id',
+        'info',
       )
     end
 

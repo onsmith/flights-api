@@ -63,6 +63,7 @@ class InstancesController < ApplicationController
         'flight_id',
         'date',
         'is_cancelled',
+        'info',
       )
     end
 

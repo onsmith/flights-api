@@ -30,14 +30,8 @@ module FlightsApi
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-
-    ## Allow CORS from any origin
-    # See: https://github.com/cyu/rack-cors
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins '*'
-        resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options]
-      end
-    end
+    # Adds cookies back to the session
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
   end
 end

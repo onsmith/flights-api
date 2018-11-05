@@ -62,6 +62,7 @@ class AirlinesController < ApplicationController
       params.require(:airline).permit(
         'name',
         'logo_url',
+        'info',
       )
     end
 

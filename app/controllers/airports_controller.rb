@@ -67,6 +67,7 @@ class AirportsController < ApplicationController
         'city',
         'state',
         'city_url',
+        'info',
       )
     end
 

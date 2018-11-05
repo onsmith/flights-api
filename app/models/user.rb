@@ -12,15 +12,12 @@ class User < ActiveRecord::Base
 
 
   # Include default devise modules. Others available are:
-  #   :recoverable, :confirmable, :lockable, :timeoutable,
-  #   :trackable, :omniauthable
-  devise :database_authenticatable, :registerable, :rememberable, :validatable
+  #   :recoverable, :confirmable, :lockable, :timeoutable, :omniauthable
+  devise :database_authenticatable, :registerable, :rememberable,
+        :trackable, :validatable
 
 
   # Define these methods to make devise happy
-  def remember_me
-    true
-  end
   def email
     username
   end

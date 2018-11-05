@@ -67,6 +67,7 @@ class SeatsController < ApplicationController
         'is_window',
         'is_isle',
         'is_exit',
+        'info',
       )
     end
 

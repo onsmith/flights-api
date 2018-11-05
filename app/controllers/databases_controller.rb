@@ -1,4 +1,4 @@
-class DatabaseController < ApplicationController
+class DatabasesController < ApplicationController
   before_action :authenticate_user, only: [:destroy]
 
 

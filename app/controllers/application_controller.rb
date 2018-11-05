@@ -18,6 +18,33 @@ class ApplicationController < ActionController::API
   private
     def action_forbidden
       head :forbidden
+      render json: {}, status: :bad_request
+    end
+
+
+
+  ## Handle ActionController exceptions
+  rescue_from ActionController::ParameterMissing, with: :parameter_missing
+  private
+    def parameter_missing(e)
+      render json: {
+        status: 400,
+        error: 'Bad Request',
+        exception: e
+      }, status: :bad_request
+    end
+
+
+
+  ## Handle ActiveRecord exceptions
+  rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
+  private
+    def record_invalid(e)
+      render json: {
+        status: 422,
+        error: 'Unprocessable Entity',
+        exception: e
+      }, status: :unprocessable_entity
     end
 
 
@@ -26,7 +53,11 @@ class ApplicationController < ActionController::API
   public
     def authenticate_user
       unless user_signed_in?
-        head :unauthorized
+        render json: {
+          status: 422,
+          error: 'Unauthorized',
+          exception: 'You must be logged in to access that endpoint'
+        }, status: :unauthorized
         return false
       end
     end

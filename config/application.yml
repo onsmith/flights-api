@@ -15,6 +15,12 @@
 
 
 production:
+  # Database
+  PG_DATABASE: "flights-api-dev"
+  PG_USERNAME: "rails"
+  PG_PASSWORD: "password"
+
+  SECRET_KEY_BASE: c1ae3f05f3ba3e564a556f4e9c9cc4093b448653a50172fab99cce287a7a43e42ab3df4676825b4f0178d3a8822c0862b6d871c02ce62a1aca928e802c9e4255
 
 
 

@@ -65,7 +65,7 @@ class SeatsController < ApplicationController
         'number',
         'cabin',
         'is_window',
-        'is_isle',
+        'is_aisle',
         'is_exit',
         'info',
       )
@@ -85,7 +85,7 @@ class SeatsController < ApplicationController
         'number',
         'cabin',
         'is_window',
-        'is_isle',
+        'is_aisle',
         'is_exit',
         id: [],
       ) rescue nil
@@ -99,7 +99,7 @@ class SeatsController < ApplicationController
         'number',
         'cabin',
         'is_window',
-        'is_isle',
+        'is_aisle',
         'is_exit',
         'created_at',
         'updated_at'

@@ -1,0 +1,212 @@
+<!doctype html>
+
+
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <style>
+      body {
+        background-color: #eee;
+        color: #333;
+      }
+
+      h2 {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        padding-bottom: 0.2em;
+      }
+
+      .response-data-wrapper {
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        padding: 0.5em;
+        border-radius: 0.3em;
+        min-height: 10em;
+      }
+
+      #url, #data {
+        font-family: monospace;
+      }
+
+      .request-card,
+      .response-card {
+        margin: 1.5em 0;
+        padding: 1.5em 1em;
+        background-color: white;
+        word-wrap: break-word;
+      }
+    </style>
+
+
+    <title>REST JSON Request Form</title>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- JavaScript to operate the requests -->
+    <script>
+      $(function() {
+        let isSubmitting = false;
+        let $form = $('#request-form');
+        let $submitButton = $('#submit-button');
+        let $responseData = $('#response-data');
+        let $responseStatus = $('#response-status');
+
+        $form.submit(function(e) {
+          e.preventDefault();
+
+          if (isSubmitting) {
+            return false;
+          }
+
+          isSubmitting = true;
+          $submitButton.prop('disabled', true);
+
+          let url  = $form.find('#url').val();
+          let verb = $form.find('input[name=verb]:checked').val();
+          let data = $form.find('#data').val();
+
+          $responseStatus.html('Requesting...');
+          $responseData.html('');
+
+          try {
+            data = JSON.parse(data);
+          } catch (_) {}
+
+          $.ajax({
+            url:  url,
+            type: verb,
+            data: data,
+            xhrFields: { withCredentials: true },
+            success: function(data, textStatus, jqXHR) {
+              $responseStatus.html(
+                '<strong>' +
+                  '<span class="text-success">Success!</span><br />' + 
+                  'HTTP response status code &nbsp; ' +
+                  '<span class="text-success">' + jqXHR.status + '</span>' +
+                '</strong>'
+              );
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+              $responseStatus.html(
+                '<strong>' +
+                  '<span class="text-danger">Fail!</span><br />' + 
+                  'HTTP response status code &nbsp; ' +
+                  '<span class="text-danger">' + jqXHR.status + '</span>' +
+                '</strong>'
+              );
+            },
+            complete: function(jqXHR, textStatus) {
+              isSubmitting = false;
+              $submitButton.prop('disabled', false);
+              $responseData.html(jqXHR.responseText);
+            },
+          });
+        });
+      });
+    </script>
+  </head>
+
+
+  <body>
+    <div class="container-fluid">
+      <div class="row justify-content-md-center">
+        <div class="col-xs-12 col-lg-6">
+          <div class="request-card">
+            <h2>Request</h2>
+
+            <form id="request-form">
+              <fieldset class="form-group">
+                <div class="row">
+                  <div class="col-form-label col-xs-12 col-sm-4 col-md-3 pt-0">
+                    <strong>HTTP Verb</strong>
+                  </div>
+
+                  <div class="col-xs-12 col-sm-4 col-md-3">
+                    <div class="form-check">
+                      <input type="radio" class="form-check-input" name="verb" value="GET" id="verb-get" checked />
+                      <label class="form-check-label" for="verb-get">GET</label>
+                    </div>
+
+                    <div class="form-check">
+                      <input type="radio" class="form-check-input" name="verb" value="POST" id="verb-post" />
+                      <label class="form-check-label" for="verb-post">POST</label>
+                    </div>
+
+                    <div class="form-check">
+                      <input type="radio" class="form-check-input" name="verb" value="PUT" id="verb-put" />
+                      <label class="form-check-label" for="verb-put">PUT</label>
+                    </div>
+                  </div>
+
+                  <div class="col-xs-12 col-sm-4 col-md-3">
+                    <div class="form-check">
+                      <input type="radio" class="form-check-input" name="verb" value="PATCH" id="verb-patch" />
+                      <label class="form-check-label" for="verb-patch">PATCH</label>
+                    </div>
+
+                    <div class="form-check">
+                      <input type="radio" class="form-check-input" name="verb" value="DELETE" id="verb-delete" />
+                      <label class="form-check-label" for="verb-delete">DELETE</label>
+                    </div>
+
+                    <div class="form-check">
+                      <input type="radio" class="form-check-input" name="verb" value="OPTIONS" id="verb-options" />
+                      <label class="form-check-label" for="verb-options">OPTIONS</label>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+
+              <div class="form-group">
+                <label for="url"><strong>URL</strong></label>
+                <input type="text" class="form-control" id="url" placeholder="http://" value="http://">
+                <small id="passwordHelpBlock" class="form-text text-muted">
+                  Don't forget http:// or https://
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label for="data"><strong>Request Data</strong></label>
+                <textarea class="form-control" id="data" rows="10"></textarea>
+              </div>
+
+              <div class="text-right">
+                <button type="submit" class="btn btn-primary" id="submit-button">
+                  Send Request
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="col col-xs-12 col-lg-6">
+          <div class="response-card">
+            <h2>Response</h2>
+
+            <p>
+              <strong>Status</strong>
+              &nbsp;
+              <span id="response-status">Ready.</span>
+            </p>
+
+            <div>
+              <label><strong>Response Value</strong></label>
+              <p class="response-data-wrapper">
+                <code id="response-data"></code>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

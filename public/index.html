@@ -1,0 +1,1319 @@
+<!doctype html>
+
+
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <style>
+      body {
+        background-color: #d8e0e9;
+        color: #333;
+      }
+
+      h1 {
+        margin-top: 0.3em;
+        margin-bottom: 0.5em;
+      }
+
+      h2 {
+        margin-top: 1em;
+        margin-bottom: 0.5em;
+      }
+
+      pre {
+        background-color: #eee;
+        padding: 1em;
+        border-radius: 5px;
+      }
+
+      .primary-content {
+        background-color: #fff;
+        margin: 1em 0;
+        padding: 1em;
+        border-radius: 10px;
+      }
+
+      .rest-routes.table th:nth-of-type(2) {
+        min-width: 8em;
+      }
+
+      .rest-routes.table th:nth-of-type(3) {
+        min-width: 16em;
+      }
+
+      .rest-routes.table th:nth-of-type(4) {
+        min-width: 16em;
+      }
+
+      .resource-properties.table th:nth-of-type(1) {
+        min-width: 8.5em;
+      }
+
+      .resource-properties.table th:nth-of-type(2) {
+        min-width: 6em;
+      }
+
+      .resource-properties.table th:nth-of-type(3) {
+        min-width: 10em;
+      }
+
+      .resource-properties.table th:nth-of-type(6) {
+        min-width: 10em;
+      }
+    </style>
+
+
+    <title>Flights API Documentation</title>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </head>
+
+
+  <body>
+    <div class="container-fluid">
+      <div class="row justify-content-md-center">
+        <div class="col-xs-12 col-lg-8">
+          <div class="primary-content">
+            <section>
+              <h1>Flights API Documentation</h1>
+
+              <p>
+                This article describes the Flights API, which may be used to construct your final project for COMP 426 in Fall 2018.
+              </p>
+            </section>
+
+            <section>
+              <h2>Tools</h2>
+              <ul>
+                <li>
+                  <strong>REST Test:</strong> <a href="/rest-test.html" target="_blank">Here is a REST API testing tool</a> that provides a simple HTML form for formulating REST API requests.
+                </li>
+                <li>
+                  <strong>Schema:</strong> <a href="/schema.pdf" target="_blank">Here is a graphical schema</a> showing all eight RESTful resources provided by the API.
+                </li>
+              </ul>
+            </section>
+
+
+
+
+            <section>
+              <h2>Table of Contents</h2>
+              <ol>
+                <li>
+                  <strong>Guide:</strong> <a href="#users">User Creation</a>
+                </li>
+                <li>
+                  <strong>Guide:</strong> <a href="#authentication">Authentication</a>
+                </li>
+                <li>
+                  <strong>Guide:</strong> <a href="#passwords">Password Change</a>
+                </li>
+                <li>
+                  <strong>Guide:</strong> <a href="#resources">RESTful Resources</a>
+                </li>
+                <li>
+                  <strong>Guide:</strong> Filtering index records (coming soon!)
+                </li>
+                <li>
+                  <strong>Guide:</strong> Sorting index records (coming soon!)
+                </li>
+                <li>
+                  <strong>Resource:</strong> <a href="#airlines">airlines</a>
+                </li>
+                <li>
+                  <strong>Resource:</strong> <a href="#airports">airports</a>
+                </li>
+                <li>
+                    <strong>Resource:</strong> <a href="#flights">flights</a>
+                </li>
+                <li>
+                    <strong>Resource:</strong> <a href="#instances">instances</a>
+                </li>
+                <li>
+                    <strong>Resource:</strong> <a href="#itineraries">itineraries</a>
+                </li>
+                <li>
+                    <strong>Resource:</strong> <a href="#planes">planes</a>
+                </li>
+                <li>
+                    <strong>Resource:</strong> <a href="#seats">seats</a>
+                </li>
+                <li>
+                    <strong>Resource:</strong> <a href="#tickets">tickets</a>
+                </li>
+                <li>
+                  <strong>Guide:</strong> Checking ticket prices (coming soon!)
+                </li>
+                <li>
+                  <strong>Guide:</strong> Checking available seats (coming soon!)
+                </li>
+                <li>
+                  <strong>Guide:</strong> Clearing your database (coming soon!)
+                </li>
+              </ol>
+            </section>
+
+
+
+
+            <section>
+              <h2 id="users">User Creation</h2>
+
+              <p>
+                The Flights API is an <em>authenticated</em> back-end. This means requests are only processed by the server if the requester has first authenticated with the system as a valid user.
+              </p>
+
+              <p>
+                A new user can be registered with the API by sending a <code>POST</code> request to the <code>/users</code> endpoint, passing the desired username and password as JSON <code>POST</code> parameters.
+              </p>
+
+              <p>
+                Here is an example new user creation request:
+              </p>
+
+              <p>
+<pre><code>POST to /users
+POST parameters:
+{
+  "user": {
+    "username": "your-desired-username",
+    "password": "your-desired-password"
+  }
+}
+</code></pre>
+              </p>
+
+              <p>
+                For the final assignment in COMP 426, <strong>you should only have to create a single user</strong>. A good choice for your username is your onyen or CS username. Use the user you created in this step every time your single-page web app connects to the Flights API server.
+              </p>
+            </section>
+
+
+
+
+            <section>
+                <h2 id="authentication">Authentication</h2>
+  
+                <p>
+                  The Flights API uses cookie authentication. This means before your single page web application can interact with the Flights API, the browser must first obtain an authentication cookie from the Flights API server. Once an authentication cookie is obtained, the browser will <em>automatically</em> send the cookie to the server every time your app interacts with the Flights API. The server will use this cookie to identify you every time your app makes a request.
+                </p>
+
+                <p>
+                  To obtain an authentication cookie, send a <code>POST</code> request to the <code>/sessions</code> endpoint, passing the desired username and password as JSON <code>POST</code> parameters.
+                </p>
+
+                <p>
+                  Here is an example request for an authentication cookie:
+                </p>
+
+                <p>
+<pre><code>POST to /sessions
+POST parameters:
+{
+  "user": {
+    "username": "your-desired-username",
+    "password": "your-desired-password"
+  }
+}
+</code></pre>
+                </p>
+  
+                <p>
+                  If necessary, you can log out by clearing your cookies. However, an easier way to log out is to send a <code>DELETE</code> request to the <code>/sessions</code> endpoint. This will make the server delete your authentication cookie for you.
+                </p>
+
+                <p>
+                  <pre><code>DELETE to /sessions</code></pre>
+                </p>
+              </section>
+
+
+
+              <section>
+                <h2 id="passwords">Password Change</h2>
+
+                <p>
+                  If necessary, you can change your Flights API authentication password by sending a <code>PUT</code> request to the <code>/passwords</code> endpoint, passing your username, current password, and desired new password as JSON <code>POST</code> parameters.
+                </p>
+
+                <p>
+                  Here is an example password change request:
+                </p>
+
+                <p>
+<pre><code>PUT to /passwords
+PUT parameters:
+{
+  "user": {
+    "username":     "your-username",
+    "old_password": "your-old-password",
+    "new_password": "your-desired-new-password"
+  }
+}
+</code></pre>
+                </p>
+              </section>
+
+
+
+              <section>
+                <h2 id="resources">RESTful Resources</h2>
+
+                <p>
+                  The Flights API is composed of eight different resources with which authenticated users may interact. All eight resources have RESTful routes defined corresponding to the following actions.
+                </p>
+
+                <div class="table-responsive-sm">
+                  <table class="table rest-routes">
+                    <thead>
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">HTTP Verb</th>
+                        <th scope="col">URL/Endpoint Example (shown for <code>airline</code> resource)</th>
+                        <th scope="col">Description</th>
+                      </tr>
+                    </thead>
+                    
+                    <tbody>
+                      <tr>
+                        <td>index</td>
+                        <td><code>GET</code></td>
+                        <td><code>/airlines</code></td>
+                        <td>Retrieves an array of all existing instances of the resource in the database. For the <code>airline</code> example, the request would return a JSON array of all <code>airline</code> objects currently saved in the database.</td>
+                      </tr>
+                      <tr>
+                        <td>create</td>
+                        <td><code>POST</code></td>
+                        <td><code>/airlines</code></td>
+                        <td>Creates a new instance of the resource and saves it in the database. For the <code>airline</code> example, the request would create and save a new <code>airline</code> in the database using values provided as <code>POST</code> parameters to populate the properties of the new <code>airline</code>.</td>
+                      </tr>
+                      <tr>
+                        <td>read</td>
+                        <td><code>GET</code></td>
+                        <td><code>/airlines/:id</code></td>
+                        <td>Retrieves the properties and data for a single existing instance of the resource. For the <code>airline</code> example, the request would search for the <code>airline</code> stored in the database that has an <code>id</code> corresponding to the <code>:id</code> part of the URL; the properties of this object are formulated as JSON and output as the response.</td>
+                      </tr>
+                      <tr>
+                        <td>update</td>
+                        <td><code>PUT</code> or <code>PATCH</code></td>
+                        <td><code>/airlines/:id</code></td>
+                        <td>Updates an existing instance of the resource with new property values. For the <code>airline</code> example, the request would first find the <code>airline</code> in the database with <code>id</code> corresponding to the <code>:id</code> part of the URL; the properties of this object are then updated in the database using new values provided as <code>PUT</code>/<code>PATCH</code> parameters.</td>
+                      </tr>
+                      <tr>
+                        <td>delete</td>
+                        <td><code>DELETE</code></td>
+                        <td><code>/airlines/:id</code></td>
+                        <td>Deletes a single existing instance of the resource. For the <code>airline</code> example, the request would search for the <code>airline</code> stored in the database that has an <code>id</code> corresponding to the <code>:id</code> part of the URL; this object would then be removed from the database.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <p>
+                  Note the following <strong>very important</strong> details:
+                </p>
+
+                <ul>
+                  <li>Resource instances you create will only be visible by users authenticated with your username/password.</li>
+                  <li>You cannot modify or link to resource instances created by other users; that is, when you authenticate with your authentication cookie, Flights API will scope all results to the data created by your user in the system.</li>
+                </ul>
+              </section>
+
+
+
+              <section>
+                <h2 id="airlines">Airlines</h2>
+
+                <p>
+                  The <code>airline</code> resource represents an airline company, such as American Airlines, Southwest Airlines, or Spirit Airlines.
+                </p>
+
+                <p>
+                  Each airline has the following properties:
+                </p>
+
+                <div class="table-responsive-sm">
+                  <table class="table resource-properties">
+                    <thead>
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Data Type</th>
+                        <th scope="col">Example Value</th>
+                        <th scope="col">Required?</th>
+                        <th scope="col">Mutable?</th>
+                        <th scope="col">Description</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <td><code>name</code></td>
+                        <td><code>string</code></td>
+                        <td><code>"American Airlines"</code></td>
+                        <td>yes</td>
+                        <td>yes</td>
+                        <td>Represents the name of the airline.</td>
+                      </tr>
+                      <tr>
+                        <td><code>logo_url</code></td>
+                        <td><code>string</code></td>
+                        <td><code>"https://www.aa.com/content/images/chrome/rebrand/aa-logo.png"</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>A link to a picture of the logo of the airline.</td>
+                      </tr>
+                      <tr>
+                        <td><code>info</code></td>
+                        <td><code>text</code></td>
+                        <td><code>"put anything you want here!"</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>A variable-length text blob that you can use to store whatever extra information you wish about the resource instance.</td>
+                      </tr>
+                      <tr>
+                        <td><code>user_id</code></td>
+                        <td><code>integer</code></td>
+                        <td><code>4</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The id of the authenticated user who created the resource instance.</td>
+                      </tr>
+                      <tr>
+                        <td><code>created_at</code></td>
+                        <td><code>datetime</code></td>
+                        <td><code>"2018-11-06T16:37:45.243Z"</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The exact date and time the resource instance was created.</td>
+                      </tr>
+                      <tr>
+                        <td><code>updated_at</code></td>
+                        <td><code>datetime</code></td>
+                        <td><code>"2018-11-06T16:37:45.243Z"</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The exact date and time the resource instance was last modified.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <p>
+                  Here is an example of a request to create a new <code>airline</code>:
+                </p>
+
+                <p>
+<pre>POST to /airlines with parameters:
+{
+  "airline": {
+    "name":     "American Airlines",
+    "logo_url": "https://www.aa.com/content/images/chrome/rebrand/aa-logo.png"
+  }
+}
+</pre>
+                </p>
+              </section>
+
+
+
+              <section>
+                <h2 id="airports">Airports</h2>
+
+                <p>
+                  The <code>airport</code> resource represents an airport, such as RDU Raleigh-Durham International Airport.
+                </p>
+
+                <p>
+                  Each airport has the following properties:
+                </p>
+
+                <div class="table-responsive-sm">
+                  <table class="table resource-properties">
+                    <thead>
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Data Type</th>
+                        <th scope="col">Example Value</th>
+                        <th scope="col">Required?</th>
+                        <th scope="col">Mutable?</th>
+                        <th scope="col">Description</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <td><code>name</code></td>
+                        <td><code>string</code></td>
+                        <td><code>"Raleigh-Durham International Airport"</code></td>
+                        <td>yes</td>
+                        <td>yes</td>
+                        <td>Represents the name of the airline.</td>
+                      </tr>
+                      <tr>
+                        <td><code>code</code></td>
+                        <td><code>string</code></td>
+                        <td><code>"RDU"</code></td>
+                        <td>yes</td>
+                        <td>yes</td>
+                        <td>The three-letter code assigned to the airport.</td>
+                      </tr>
+                      <tr>
+                        <td><code>latitude</code></td>
+                        <td><code>string</code></td>
+                        <td><code>"35.877339"</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>The latitude location of the airport in degrees expressed as a (Google Maps friendly) floating-point string.</td>
+                      </tr>
+                      <tr>
+                        <td><code>longitude</code></td>
+                        <td><code>string</code></td>
+                        <td><code>"-78.789165"</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>The longitude location of the airport in degrees expressed as a (Google Maps friendly) floating-point string.</td>
+                      </tr>
+                      <tr>
+                        <td><code>city</code></td>
+                        <td><code>string</code></td>
+                        <td><code>"Raleigh"</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>The main city serviced by the airport.</td>
+                      </tr>
+                      <tr>
+                        <td><code>state</code></td>
+                        <td><code>string</code></td>
+                        <td><code>"NC"</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>The state in which the city is located.</td>
+                      </tr>
+                      <tr>
+                        <td><code>city_url</code></td>
+                        <td><code>string</code></td>
+                        <td><code>"https://www.itprotoday.com/sites/itprotoday.com/files/styles/article_featured_standard/public/ThinkstockPhotos-526713024_0.jpg"</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>A link to a pretty picture of the airport or surrounding area that you can use in your user interface.</td>
+                      </tr>
+                      <tr>
+                        <td><code>info</code></td>
+                        <td><code>text</code></td>
+                        <td><code>"put anything you want here!"</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>A variable-length text blob that you can use to store whatever extra information you wish about the resource instance.</td>
+                      </tr>
+                      <tr>
+                        <td><code>user_id</code></td>
+                        <td><code>integer</code></td>
+                        <td><code>4</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The id of the authenticated user who created the resource instance.</td>
+                      </tr>
+                      <tr>
+                        <td><code>created_at</code></td>
+                        <td><code>datetime</code></td>
+                        <td><code>"2018-11-06T16:37:45.243Z"</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The exact date and time the resource instance was created.</td>
+                      </tr>
+                      <tr>
+                        <td><code>updated_at</code></td>
+                        <td><code>datetime</code></td>
+                        <td><code>"2018-11-06T16:37:45.243Z"</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The exact date and time the resource instance was last modified.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <p>
+                  Here is an example of a request to create a new <code>airport</code>:
+                </p>
+
+                <p>
+<pre>POST to /airports with parameters:
+{
+  "airport": {
+    "name": "Raleigh-Durham International Airport",
+    "code": "RDU"
+  }
+}
+</pre>
+                </p>
+              </section>
+
+
+
+              <section>
+                <h2 id="flights">Flights</h2>
+
+                <p>
+                  The <code>flight</code> resource represents a predefined flight route that is scheduled to leave a departure airport at a certain time and arrive at a different arrival airport at a later time.
+                </p>
+
+                <p>
+                  Each flight has the following properties:
+                </p>
+
+                <div class="table-responsive-sm">
+                  <table class="table resource-properties">
+                    <thead>
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Data Type</th>
+                        <th scope="col">Example Value</th>
+                        <th scope="col">Required?</th>
+                        <th scope="col">Mutable?</th>
+                        <th scope="col">Description</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <td><code>departs_at</code></td>
+                        <td><code>time</code></td>
+                        <td><code>14:30</code></td>
+                        <td>yes</td>
+                        <td>yes</td>
+                        <td>The departure time of the flight, specified as a 24-hour time.</td>
+                      </tr>
+                      <tr>
+                        <td><code>arrives_at</code></td>
+                        <td><code>time</code></td>
+                        <td><code>17:10</code></td>
+                        <td>yes</td>
+                        <td>yes</td>
+                        <td>The arrival time of the flight, specified as a 24-hour time.</td>
+                      </tr>
+                      <tr>
+                        <td><code>number</code></td>
+                        <td><code>string</code></td>
+                        <td><code>"AA 2667"</code></td>
+                        <td>yes</td>
+                        <td>yes</td>
+                        <td>The flight number or code used to uniquely identify the flight.</td>
+                      </tr>
+                      <tr>
+                        <td><code>plane_id</code></td>
+                        <td><code>integer</code></td>
+                        <td><code>6</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>The id of the plane model used as the seat map for this flight.</td>
+                      </tr>
+                      <tr>
+                        <td><code>departure_id</code></td>
+                        <td><code>integer</code></td>
+                        <td><code>8</code></td>
+                        <td>yes</td>
+                        <td>yes</td>
+                        <td>The id of the departure airport object for this flight.</td>
+                      </tr>
+                      <tr>
+                        <td><code>arrival_id</code></td>
+                        <td><code>integer</code></td>
+                        <td><code>9</code></td>
+                        <td>yes</td>
+                        <td>yes</td>
+                        <td>The id of the arrival airport object for this flight.</td>
+                      </tr>
+                      <tr>
+                        <td><code>next_flight_id</code></td>
+                        <td><code>integer</code></td>
+                        <td><code>2</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>If this flight is scheduled to have multiple consecutive segments, this field represents the id of the next flight object in the sequence.</td>
+                      </tr>
+                      <tr>
+                        <td><code>airline_id</code></td>
+                        <td><code>integer</code></td>
+                        <td><code>1</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>The id of the airline object that services this flight.</td>
+                      </tr>
+                      <tr>
+                        <td><code>info</code></td>
+                        <td><code>text</code></td>
+                        <td><code>"put anything you want here!"</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>A variable-length text blob that you can use to store whatever extra information you wish about the resource instance.</td>
+                      </tr>
+                      <tr>
+                        <td><code>user_id</code></td>
+                        <td><code>integer</code></td>
+                        <td><code>4</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The id of the authenticated user who created the resource instance.</td>
+                      </tr>
+                      <tr>
+                        <td><code>created_at</code></td>
+                        <td><code>datetime</code></td>
+                        <td><code>"2018-11-06T16:37:45.243Z"</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The exact date and time the resource instance was created.</td>
+                      </tr>
+                      <tr>
+                        <td><code>updated_at</code></td>
+                        <td><code>datetime</code></td>
+                        <td><code>"2018-11-06T16:37:45.243Z"</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The exact date and time the resource instance was last modified.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <p>
+                  Here is an example of a request to create a new <code>flight</code>:
+                </p>
+
+                <p>
+<pre>POST to /flights with parameters:
+{
+  "flight": {
+    "departs_at":   "14:30",
+    "arrives_at":   "17:10",
+    "number":       "AA 2667",
+    "departure_id": 8,
+    "arrival_id":   9
+  }
+}
+</pre>
+                </p>
+              </section>
+
+
+
+              <section>
+                <h2 id="instances">Instances</h2>
+
+                <p>
+                  The <code>instance</code> resource represents an instance of a <code>flight</code>, operating on a given date.
+                </p>
+
+                <p>
+                  Each instance has the following properties:
+                </p>
+
+                <div class="table-responsive-sm">
+                  <table class="table resource-properties">
+                    <thead>
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Data Type</th>
+                        <th scope="col">Example Value</th>
+                        <th scope="col">Required?</th>
+                        <th scope="col">Mutable?</th>
+                        <th scope="col">Description</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <td><code>flight_id</code></td>
+                        <td><code>integer</code></td>
+                        <td><code>5</code></td>
+                        <td>yes</td>
+                        <td>yes</td>
+                        <td>The id of the related flight object.</td>
+                      </tr>
+                      <tr>
+                        <td><code>date</code></td>
+                        <td><code>date</code></td>
+                        <td><code>"2018-12-21"</code></td>
+                        <td>yes</td>
+                        <td>yes</td>
+                        <td>The date on which this flight instance will operate.</td>
+                      </tr>
+                      <tr>
+                        <td><code>is_cancelled</code></td>
+                        <td><code>boolean</code></td>
+                        <td><code>false</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>Set this value to true if the flight instance is cancelled.</td>
+                      </tr>
+                      <tr>
+                        <td><code>info</code></td>
+                        <td><code>text</code></td>
+                        <td><code>"put anything you want here!"</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>A variable-length text blob that you can use to store whatever extra information you wish about the resource instance.</td>
+                      </tr>
+                      <tr>
+                        <td><code>user_id</code></td>
+                        <td><code>integer</code></td>
+                        <td><code>4</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The id of the authenticated user who created the resource instance.</td>
+                      </tr>
+                      <tr>
+                        <td><code>created_at</code></td>
+                        <td><code>datetime</code></td>
+                        <td><code>"2018-11-06T16:37:45.243Z"</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The exact date and time the resource instance was created.</td>
+                      </tr>
+                      <tr>
+                        <td><code>updated_at</code></td>
+                        <td><code>datetime</code></td>
+                        <td><code>"2018-11-06T16:37:45.243Z"</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The exact date and time the resource instance was last modified.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <p>
+                  Here is an example of a request to create a new <code>instance</code>:
+                </p>
+
+                <p>
+<pre>POST to /instances with parameters:
+{
+  "instance": {
+    "flight_id": 1,
+    "date":      "2018-12-21"
+  }
+}
+</pre>
+                </p>
+              </section>
+
+
+
+              <section>
+                <h2 id="itineraries">Itineraries</h2>
+
+                <p>
+                  The <code>itinerary</code> resource represents a group of <code>ticket</code> objects purchased together, representing a single transaction.
+                </p>
+
+                <p>
+                  Each itinerary has the following properties:
+                </p>
+
+                <div class="table-responsive-sm">
+                  <table class="table resource-properties">
+                    <thead>
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Data Type</th>
+                        <th scope="col">Example Value</th>
+                        <th scope="col">Required?</th>
+                        <th scope="col">Mutable?</th>
+                        <th scope="col">Description</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <td><code>confirmation_code</code></td>
+                        <td><code>string</code></td>
+                        <td><code>"S7CBCY"</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>confirmation code given to the user after the itinerary is purchased.</td>
+                      </tr>
+                      <tr>
+                        <td><code>email</code></td>
+                        <td><code>string</code></td>
+                        <td><code>"kmp@cs.unc.edu"</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>The email address of the user who purchased the itinerary tickets.</td>
+                      </tr>
+                      <tr>
+                        <td><code>info</code></td>
+                        <td><code>text</code></td>
+                        <td><code>"put anything you want here!"</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>A variable-length text blob that you can use to store whatever extra information you wish about the resource instance.</td>
+                      </tr>
+                      <tr>
+                        <td><code>user_id</code></td>
+                        <td><code>integer</code></td>
+                        <td><code>4</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The id of the authenticated user who created the resource instance.</td>
+                      </tr>
+                      <tr>
+                        <td><code>created_at</code></td>
+                        <td><code>datetime</code></td>
+                        <td><code>"2018-11-06T16:37:45.243Z"</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The exact date and time the resource instance was created.</td>
+                      </tr>
+                      <tr>
+                        <td><code>updated_at</code></td>
+                        <td><code>datetime</code></td>
+                        <td><code>"2018-11-06T16:37:45.243Z"</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The exact date and time the resource instance was last modified.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <p>
+                  Here is an example of a request to create a new <code>itinerary</code>:
+                </p>
+
+                <p>
+<pre>POST to /itineraries with parameters:
+{
+  "itinerary": {
+    "confirmation_code": "S7CBCY",
+    "email":             "kmp@cs.unc.edu"
+  }
+}
+</pre>
+                </p>
+              </section>
+
+
+
+              <section>
+                <h2 id="planes">Planes</h2>
+
+                <p>
+                  The <code>plane</code> resource represents a model of airplane with a specific seatmap.
+                </p>
+
+                <p>
+                  Each plane has the following properties:
+                </p>
+
+                <div class="table-responsive-sm">
+                  <table class="table resource-properties">
+                    <thead>
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Data Type</th>
+                        <th scope="col">Example Value</th>
+                        <th scope="col">Required?</th>
+                        <th scope="col">Mutable?</th>
+                        <th scope="col">Description</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <td><code>name</code></td>
+                        <td><code>string</code></td>
+                        <td><code>"AA Airbus A320"</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>The name of the airplane and/or seatmap.</td>
+                      </tr>
+                      <tr>
+                        <td><code>seatmap_url</code></td>
+                        <td><code>string</code></td>
+                        <td><code>"https://cdn.seatguru.com/en_US/img/20181023165430/seatguru/airlines_new/American_Airlines/American_Airlines_Airbus_A320.svg"</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>A link to a seatmap image for the airplane.</td>
+                      </tr>
+                      <tr>
+                        <td><code>airline_id</code></td>
+                        <td><code>integer</code></td>
+                        <td><code>2</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>The airline associated with this airplane and/or seatmap.</td>
+                      </tr>
+                      <tr>
+                        <td><code>info</code></td>
+                        <td><code>text</code></td>
+                        <td><code>"put anything you want here!"</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>A variable-length text blob that you can use to store whatever extra information you wish about the resource instance.</td>
+                      </tr>
+                      <tr>
+                        <td><code>user_id</code></td>
+                        <td><code>integer</code></td>
+                        <td><code>4</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The id of the authenticated user who created the resource instance.</td>
+                      </tr>
+                      <tr>
+                        <td><code>created_at</code></td>
+                        <td><code>datetime</code></td>
+                        <td><code>"2018-11-06T16:37:45.243Z"</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The exact date and time the resource instance was created.</td>
+                      </tr>
+                      <tr>
+                        <td><code>updated_at</code></td>
+                        <td><code>datetime</code></td>
+                        <td><code>"2018-11-06T16:37:45.243Z"</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The exact date and time the resource instance was last modified.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <p>
+                  Here is an example of a request to create a new <code>plane</code>:
+                </p>
+
+                <p>
+<pre>POST to /planes with parameters:
+{
+  "plane": {
+    "name":        "AA Airbus A320",
+    "seatmap_url": "https://cdn.seatguru.com/en_US/img/20181023165430/seatguru/airlines_new/American_Airlines/American_Airlines_Airbus_A320.svg",
+    "airline_id":  2
+  }
+}
+</pre>
+                </p>
+              </section>
+
+
+
+              <section>
+                <h2 id="seats">Seats</h2>
+
+                <p>
+                  The <code>seat</code> resource represents a seat on a plane model.
+                </p>
+
+                <p>
+                  Each seat has the following properties:
+                </p>
+
+                <div class="table-responsive-sm">
+                  <table class="table resource-properties">
+                    <thead>
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Data Type</th>
+                        <th scope="col">Example Value</th>
+                        <th scope="col">Required?</th>
+                        <th scope="col">Mutable?</th>
+                        <th scope="col">Description</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <td><code>plane_id</code></td>
+                        <td><code>integer</code></td>
+                        <td><code>3</code></td>
+                        <td>yes</td>
+                        <td>yes</td>
+                        <td>The plane model to which this seat belongs.</td>
+                      </tr>
+                      <tr>
+                        <td><code>row</code></td>
+                        <td><code>integer</code></td>
+                        <td><code>21</code></td>
+                        <td>yes</td>
+                        <td>yes</td>
+                        <td>The row of the seat inside the plane.</td>
+                      </tr>
+                      <tr>
+                        <td><code>number</code></td>
+                        <td><code>string</code></td>
+                        <td><code>"A"</code></td>
+                        <td>yes</td>
+                        <td>yes</td>
+                        <td>The number/name of the seat within its row.</td>
+                      </tr>
+                      <tr>
+                        <td><code>cabin</code></td>
+                        <td><code>string</code></td>
+                        <td><code>"first"</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>The cabin class of the seat. Examples include "first", "economy", or "budget".</td>
+                      </tr>
+                      <tr>
+                        <td><code>is_window</code></td>
+                        <td><code>boolean</code></td>
+                        <td><code>true</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>True if this seat is a window seat.</td>
+                      </tr>
+                      <tr>
+                        <td><code>is_aisle</code></td>
+                        <td><code>boolean</code></td>
+                        <td><code>false</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>True if this seat is an aisle seat.</td>
+                      </tr>
+                      <tr>
+                        <td><code>is_exit</code></td>
+                        <td><code>boolean</code></td>
+                        <td><code>false</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>True if this seat is in an exit row.</td>
+                      </tr>
+                      <tr>
+                        <td><code>info</code></td>
+                        <td><code>text</code></td>
+                        <td><code>"put anything you want here!"</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>A variable-length text blob that you can use to store whatever extra information you wish about the resource instance.</td>
+                      </tr>
+                      <tr>
+                        <td><code>user_id</code></td>
+                        <td><code>integer</code></td>
+                        <td><code>4</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The id of the authenticated user who created the resource instance.</td>
+                      </tr>
+                      <tr>
+                        <td><code>created_at</code></td>
+                        <td><code>datetime</code></td>
+                        <td><code>"2018-11-06T16:37:45.243Z"</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The exact date and time the resource instance was created.</td>
+                      </tr>
+                      <tr>
+                        <td><code>updated_at</code></td>
+                        <td><code>datetime</code></td>
+                        <td><code>"2018-11-06T16:37:45.243Z"</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The exact date and time the resource instance was last modified.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <p>
+                  Here is an example of a request to create a new <code>seat</code>:
+                </p>
+
+                <p>
+<pre>POST to /seats with parameters:
+{
+  "seat": {
+    "plane_id":  2,
+    "row":       21,
+    "number":    "A",
+    "cabin":     "economy",
+    "is_window": true
+  }
+}
+</pre>
+                </p>
+              </section>
+
+
+
+              <section>
+                <h2 id="tickets">Tickets</h2>
+
+                <p>
+                  The <code>ticket</code> resource represents a ticket purchased for a particular seat on a particular flight instance.
+                </p>
+
+                <p>
+                  Each ticket has the following properties:
+                </p>
+
+                <div class="table-responsive-sm">
+                  <table class="table resource-properties">
+                    <thead>
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Data Type</th>
+                        <th scope="col">Example Value</th>
+                        <th scope="col">Required?</th>
+                        <th scope="col">Mutable?</th>
+                        <th scope="col">Description</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <td><code>first_name</code></td>
+                        <td><code>string</code></td>
+                        <td><code>"Aaron"</code></td>
+                        <td>yes</td>
+                        <td>yes</td>
+                        <td>The first name of the passenger who owns this ticket.</td>
+                      </tr>
+                      <tr>
+                        <td><code>middle_name</code></td>
+                        <td><code>string</code></td>
+                        <td><code>"Joseph"</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>The middle name of the passenger who owns this ticket.</td>
+                      </tr>
+                      <tr>
+                        <td><code>last_name</code></td>
+                        <td><code>string</code></td>
+                        <td><code>"Smith"</code></td>
+                        <td>yes</td>
+                        <td>yes</td>
+                        <td>The last name of the passenger who owns this ticket.</td>
+                      </tr>
+                      <tr>
+                        <td><code>age</code></td>
+                        <td><code>integer</code></td>
+                        <td><code>27</code></td>
+                        <td>yes</td>
+                        <td>yes</td>
+                        <td>The age of the passenger who owns this ticket.</td>
+                      </tr>
+                      <tr>
+                        <td><code>gender</code></td>
+                        <td><code>string</code></td>
+                        <td><code>"male"</code></td>
+                        <td>yes</td>
+                        <td>yes</td>
+                        <td>The gender of the passenger who owns this ticket.</td>
+                      </tr>
+                      <tr>
+                        <td><code>is_purchased</code></td>
+                        <td><code>boolean</code></td>
+                        <td><code>true</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>True if the ticket has been purchased; false if the user has not yet purchased the ticket.</td>
+                      </tr>
+                      <tr>
+                        <td><code>price_paid</code></td>
+                        <td><code>float</code></td>
+                        <td><code>"290.11"</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>The price paid for the ticket.</td>
+                      </tr>
+                      <tr>
+                        <td><code>instance_id</code></td>
+                        <td><code>integer</code></td>
+                        <td><code>3</code></td>
+                        <td>yes</td>
+                        <td>yes</td>
+                        <td>The plane model to which this seat belongs.</td>
+                      </tr>
+                      <tr>
+                        <td><code>itinerary_id</code></td>
+                        <td><code>integer</code></td>
+                        <td><code>5</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>The itinerary to which this ticket belongs, if more than one ticket are purchased at a time.</td>
+                      </tr>
+                      <tr>
+                        <td><code>seat_id</code></td>
+                        <td><code>integer</code></td>
+                        <td><code>21</code></td>
+                        <td>yes</td>
+                        <td>yes</td>
+                        <td>The seat on the plane for which the ticket is valid.</td>
+                      </tr>
+                      <tr>
+                        <td><code>info</code></td>
+                        <td><code>text</code></td>
+                        <td><code>"put anything you want here!"</code></td>
+                        <td>no</td>
+                        <td>yes</td>
+                        <td>A variable-length text blob that you can use to store whatever extra information you wish about the resource instance.</td>
+                      </tr>
+                      <tr>
+                        <td><code>user_id</code></td>
+                        <td><code>integer</code></td>
+                        <td><code>4</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The id of the authenticated user who created the resource instance.</td>
+                      </tr>
+                      <tr>
+                        <td><code>created_at</code></td>
+                        <td><code>datetime</code></td>
+                        <td><code>"2018-11-06T16:37:45.243Z"</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The exact date and time the resource instance was created.</td>
+                      </tr>
+                      <tr>
+                        <td><code>updated_at</code></td>
+                        <td><code>datetime</code></td>
+                        <td><code>"2018-11-06T16:37:45.243Z"</code></td>
+                        <td>no</td>
+                        <td>no</td>
+                        <td>The exact date and time the resource instance was last modified.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <p>
+                  Here is an example of a request to create a new <code>ticket</code>:
+                </p>
+
+                <p>
+<pre>POST to /tickets with parameters:
+{
+  "ticket": {
+    "first_name":   "Aaron",
+    "middle_name":  "Joseph",
+    "last_name":    "Smith",
+    "age":          27,
+    "gender":       "male",
+    "is_purchased": true,
+    "price_paid":   "290.11",
+    "instance_id":  8,
+    "seat_id":      21
+  }
+}
+</pre>
+                </p>
+              </section>
+          </div>
+        </div>
+    </div>
+  </body>
+</html>

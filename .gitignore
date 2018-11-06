@@ -19,3 +19,4 @@
 
 .byebug_history
 .vscode/settings.json
+config/application.yml

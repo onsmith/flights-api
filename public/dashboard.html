@@ -1,0 +1,379 @@
+<!doctype html>
+
+
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <style>
+      body {
+        background-color: white;
+        color: #333;
+      }
+
+      .primary-content {
+        background-color: white;
+        overflow: hidden;
+
+        /* Mobile layout */
+        width: 100%;
+        padding: 1em;
+      }
+
+      @media(min-width: 30em) {
+        body {
+          background-color: rgb(31, 181, 201);
+        }
+
+        .primary-content {
+          width:  30em;
+          height: 35em;
+          position: absolute;
+          top:0; bottom: 0; left: 0; right: 0;
+          margin: auto;
+
+          border-radius: 10px;
+          box-shadow: 2px 2px 10px 5px rgba(0, 0, 0, 0.15);
+        }
+      }
+
+      .primary-title {
+        text-align: center;
+        font-size: 2em;
+        margin: 0.5em 0.5em 1em 0.5em;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+
+
+    <title>Flights API Login Tool</title>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- JavaScript to operate the requests -->
+    <script>
+      $(function() {
+        let isSubmitting = false;
+
+        let $status = $('.status');
+
+        let $loginSection = $('.login-section');
+        let $loginForm = $('.login-form');
+        let $loginSubmitButton = $loginForm.find('button[type=submit]');
+        let $createNewAccountButton = $('.create-new-account-button');
+
+        let $dashboardSection = $('.dashboard-section');
+        let $dashboardWelcome = $('.dashboard-welcome');
+        let $dashboardClearButton = $('.dashboard-clear');
+        let $dashboardLogoutButton = $('.dashboard-logout');
+
+        let $createAccountSection = $('.create-account-section');
+        let $createAccountForm = $('.create-account-form');
+        let $createAccountSubmitButton = $createAccountForm.find('button[type=submit]');
+        let $backToLoginButton = $('.back-to-login-button');
+
+
+        $loginForm.submit(function(e) {
+          e.preventDefault();
+
+          if (isSubmitting) {
+            return false;
+          }
+
+          isSubmitting = true;
+          $status.html('Logging in...');
+          $loginSubmitButton.prop('disabled', true);
+
+          let data = {
+            user: {
+              username: $loginForm.find('#login-username').val(),
+              password: $loginForm.find('#login-password').val(),
+            },
+          };
+
+          $.ajax({
+            url:  '/sessions',
+            type: 'POST',
+            data: data,
+            xhrFields: { withCredentials: true },
+            success: function(d, textStatus, jqXHR) {
+              $loginSection.hide();
+              $dashboardWelcome.html('Hello! You\'re currently logged in as ' + data.user.username + '.');
+              $status.html('<strong class="text-success">Login successful.</strong>');
+              $dashboardSection.show();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+              if (jqXHR.status === 0) {
+                $status.html(
+                  '<strong class="text-danger">Unable to reach server. Make sure you are online. If you are off-campus, make sure you are connected to the VPN.</strong>'
+                );
+              } else if (jqXHR.status === 401) {
+                $status.html(
+                  '<strong class="text-danger">Incorrect username and/or password.</strong>'
+                );
+              } else {
+                $status.html(
+                  '<strong class="text-danger">An unknown error occurred.</strong>'
+                );
+              }
+            },
+            complete: function(jqXHR, textStatus) {
+              isSubmitting = false;
+              $loginSubmitButton.prop('disabled', false);
+            },
+          });
+        });
+
+
+        $dashboardClearButton.click(function(e) {
+          if (isSubmitting) {
+            return;
+          }
+
+          let confirmed = confirm("This action will destroy all records in your database. Are you sure you want to proceed?");
+          if (!confirmed) {
+            return;
+          }
+
+          isSubmitting = true;
+          $status.html("Deleting...");
+          $dashboardClearButton.prop('disabled', true);
+          $dashboardLogoutButton.prop('disabled', true);
+
+          $.ajax({
+            url:  '/data',
+            type: 'DELETE',
+            xhrFields: { withCredentials: true },
+            success: function(data, textStatus, jqXHR) {
+              $status.html(
+                '<strong class="text-success">Database wiped.</strong>'
+              );
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+              if (jqXHR.status === 0) {
+                $status.html(
+                  '<strong class="text-danger">Unable to reach server. Make sure you are online. If you are off-campus, make sure you are connected to the VPN.</strong>'
+                );
+              } else {
+                $status.html(
+                  '<strong class="text-danger">An unknown error occurred.</strong>'
+                );
+              }
+            },
+            complete: function(jqXHR, textStatus) {
+              isSubmitting = false;
+              $dashboardClearButton.prop('disabled', false);
+              $dashboardLogoutButton.prop('disabled', false);
+            },
+          });
+        });
+
+
+        $dashboardLogoutButton.click(function(e) {
+          if (isSubmitting) {
+            return;
+          }
+
+          isSubmitting = true;
+          $status.html("Logging out...");
+          $dashboardClearButton.prop('disabled', true);
+          $dashboardLogoutButton.prop('disabled', true);
+
+          $.ajax({
+            url:  '/sessions',
+            type: 'DELETE',
+            xhrFields: { withCredentials: true },
+            success: function(data, textStatus, jqXHR) {
+              $dashboardSection.hide();
+              $status.html('<strong class="text-success">You have been logged out.</strong>');
+              $loginSection.show();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+              if (jqXHR.status === 0) {
+                $status.html(
+                  '<strong class="text-danger">Unable to reach server. Make sure you are online. If you are off-campus, make sure you are connected to the VPN.</strong>'
+                );
+              } else {
+                $status.html(
+                  '<strong class="text-danger">An unknown error occurred.</strong>'
+                );
+              }
+            },
+            complete: function(jqXHR, textStatus) {
+              isSubmitting = false;
+              $dashboardClearButton.prop('disabled', false);
+              $dashboardLogoutButton.prop('disabled', false);
+            },
+          });
+        });
+
+
+        $createAccountForm.submit(function(e) {
+          e.preventDefault();
+
+          if (isSubmitting) {
+            return;
+          }
+
+          isSubmitting = true;
+          $status.html("Creating account...");
+          $createAccountSubmitButton.prop('disabled', true);
+          $backToLoginButton.prop('disabled', true);
+
+          let data = {
+            user: {
+              username: $('#create-account-username').val(),
+              password: $('#create-account-password').val(),
+            },
+          };
+
+          $.ajax({
+            url:  '/users',
+            type: 'POST',
+            data: data,
+            xhrFields: { withCredentials: true },
+            success: function(d, textStatus, jqXHR) {
+              $status.html('<strong class="text-success">Your account has been created.</strong>');
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+              if (jqXHR.status === 0) {
+                $status.html(
+                  '<strong class="text-danger">Unable to reach server. Make sure you are online. If you are off-campus, make sure you are connected to the VPN.</strong>'
+                );
+              } else if (jqXHR.status === 422) {
+                $status.html(
+                  '<strong class="text-danger">Username and password are both required fields.</strong>'
+                );
+              } else if (jqXHR.status === 409) {
+                $status.html(
+                  '<strong class="text-danger">That username has already been taken.</strong>'
+                );
+              } else {
+                $status.html(
+                  '<strong class="text-danger">An unknown error occurred.</strong>'
+                );
+              }
+            },
+            complete: function(jqXHR, textStatus) {
+              isSubmitting = false;
+              $createAccountSubmitButton.prop('disabled', false);
+              $backToLoginButton.prop('disabled', false);
+            },
+          });
+        });
+
+
+        $backToLoginButton.click(function(e) {
+          $createAccountSection.hide();
+          $status.html('');
+          $loginSection.show();
+        });
+
+
+        $createNewAccountButton.click(function(e) {
+          $loginSection.hide();
+          $status.html('');
+          $createAccountSection.show();
+        });
+
+
+        $.ajax({
+          url:  '/airports',
+          type: 'POST',
+          xhrFields: { withCredentials: true },
+          error: function(jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status === 400) {
+              $loginSection.hide();
+              $dashboardWelcome.html('Hello! You\'re currently logged in.');
+              $dashboardSection.show();
+            }
+          },
+        });
+      });
+    </script>
+  </head>
+
+
+  <body>
+    <main class="primary-content">
+      <section class="login-section">
+        <h1 class="primary-title">
+          Flights API Login
+        </h1>
+
+        <p class="status"></p>
+
+        <form class="login-form">
+          <div class="form-group">
+            <label for="login-username">Username</label>
+            <input type="text" class="form-control" id="login-username" placeholder="Enter your username" />
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" class="form-control" id="login-password" placeholder="Enter your password" />
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-secondary btn-lg btn-block">Log In</button>
+            <button type="button" class="btn btn-link btn-block create-new-account-button">Click here to create a new account.</button>
+          </div>
+        </form>
+      </section>
+
+
+      <section class="dashboard-section hidden">
+        <h1 class="primary-title">
+          Flights API Dashboard
+        </h1>
+
+        <h5 class="dashboard-welcome"></h5>
+
+        <p class="status"></p>
+
+        <p>
+          <button type="button" class="btn btn-danger btn-lg btn-block dashboard-clear">Clear Database</button>
+        </p>
+
+        <p>
+          <button type="button" class="btn btn-info btn-lg btn-block dashboard-logout">Log Out</button>
+        </p>
+      </section>
+
+
+      <section class="create-account-section hidden">
+        <h1 class="primary-title">
+          Flights API New User
+        </h1>
+
+        <p class="status"></p>
+
+        <form class="create-account-form">
+          <div class="form-group">
+            <label for="create-account-username">Username</label>
+            <input type="text" class="form-control" id="create-account-username" placeholder="Enter your desired username" />
+          </div>
+          <div class="form-group">
+            <label for="create-account-password">Password</label>
+            <input type="password" class="form-control" id="create-account-password" placeholder="Enter your desired password" />
+          </div>
+          <div class="form-group">
+              <button type="submit" class="btn btn-info btn-lg btn-block">Create Account</button>
+              <button type="button" class="btn btn-link btn-block back-to-login-button">Back to login form</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

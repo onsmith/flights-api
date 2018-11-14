@@ -35,13 +35,13 @@ class Flight < ApplicationRecord
   end
 
   def departure_must_be_accessible
-    if departure.user.present? && departure.user != user
+    if departure.present? && departure.user.present? && departure.user != user
       errors.add(:departure_id, "does not exist")
     end
   end
 
   def arrival_must_be_accessible
-    if arrival.user.present? && arrival.user != user
+    if arrival.present? && arrival.user.present? && arrival.user != user
       errors.add(:arrival_id, "does not exist")
     end
   end

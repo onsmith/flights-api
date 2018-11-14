@@ -1,4 +1,13 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user, only: [:index]
+
+
+  ## GET /users
+  def index
+    render json: current_user
+  end
+
+
   ## POST /users
   def create
     @user = User.new(user_params)

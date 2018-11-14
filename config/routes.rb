@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   ## Authentication
   devise_for :users, only: []
+  get    '/users',     to: 'users#index'
   post   '/users',     to: 'users#create'
   post   '/sessions',  to: 'sessions#create'
   delete '/sessions',  to: 'sessions#destroy'

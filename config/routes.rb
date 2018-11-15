@@ -29,4 +29,8 @@ Rails.application.routes.draw do
 
   ## Clear data route
   delete '/data', to: 'databases#destroy'
+
+
+  ## Ember wildcard route
+  get '/client/*a', to: redirect('/client/index.html')
 end

@@ -32,5 +32,5 @@ Rails.application.routes.draw do
 
 
   ## Ember wildcard route
-  get '/client/*a', to: redirect('/client/index.html')
+  get '/client/*a', to: redirect('/client')
 end

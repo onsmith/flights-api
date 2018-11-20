@@ -125,10 +125,10 @@
             <strong>Guide:</strong> <a href="#resources">RESTful Resources</a>
           </li>
           <li>
-            <strong>Guide:</strong> Filtering index records (coming soon!)
+            <strong>Guide:</strong> <a href="#filtering">Filtering records</a>
           </li>
           <li>
-            <strong>Guide:</strong> Sorting index records (coming soon!)
+            <strong>Guide:</strong> Sorting records (coming soon!)
           </li>
           <li>
             <strong>Resource:</strong> <a href="#airlines">airlines</a>
@@ -161,7 +161,7 @@
             <strong>Guide:</strong> Checking available seats (coming soon!)
           </li>
           <li>
-            <strong>Guide:</strong> Clearing your database (coming soon!)
+              <strong>Guide:</strong> <a href="#clearing">Clearing your database</a>
           </li>
         </ol>
       </section>
@@ -328,6 +328,48 @@
             <li>Resource instances you create will only be visible by users authenticated with your username/password.</li>
             <li>You cannot modify or link to resource instances created by other users; that is, when you authenticate with your authentication cookie, Flights API will scope all results to the data created by your user in the system.</li>
           </ul>
+        </section>
+
+
+
+        <section>
+          <h2 id="filtering">Filtering records</h2>
+
+          <p>
+            One extremely useful feature available in the index route for every resource is the ability to retrieve a specific subset of records that match a certain criteria. This is often called <em>filtering</em> records, because the goal is to filter the list of results, returning a smaller list that only contains the records in which you are interested.
+          </p>
+
+          <p>
+            In the Flights API, records can be filtered by passing a special <code>GET</code> parameter(s) with your <code>index</code> request. The parameters to send take the following form: <code>filter[field_name]=filter_value</code>, where <code>field_name</code> is the name of the field you want to filter by and <code>filter_value</code> is the value you want to permit (filter).
+          </p>
+
+          <p>
+            For example, if you wish to retrieve the <code>airport</code> record(s) that have airport code <code>BOS</code>, you may make the following <code>GET</code> request:
+          </p>
+
+          <p>
+            <pre>GET to /airports?filter[code]=BOS</pre>
+          </p>
+
+          <p>
+            Note that since index routes always return a list of records, the returned JSON will always be an array of values even if zero or only one record is found matching the criteria. For example, you may (and probably should) only have one airport record in your database with code <code>BOS</code>; however, the request will still respond with a JSON "array" consisting of only one item.
+          </p>
+
+          <p>
+            This feature is particularly useful for retrieving a list of records <strong>related</strong> to a given record. For example, suppose you have an itinerary record with <code>id = 3</code>, and you wish to get a list of all tickets related to that itinerary. This can be retrieved with the following request:
+          </p>
+
+          <p>
+            <pre>GET to /tickets?filter[itinerary_id]=3</pre>
+          </p>
+
+          <p>
+            Finally, note that it is also possible to filter results by two or more fields at the same time. If multiple filters are specified simultaneously, the system will perform a <strong>boolean AND</strong> to produce the results list. For example, the following request will retrieve all window seats belonging to the plane with id 14 (in other words, all seats that are window seats <strong>AND</strong> belong to plane 14):
+          </p>
+
+          <p>
+            <pre>GET to /seats?filter[plane_id]=14&filter[is_window]=true</pre>
+          </p>
         </section>
 
 
@@ -1311,5 +1353,27 @@
 </pre>
         </p>
       </section>
+
+
+
+      <section>
+        <h2 id="clearing">Clearing your database</h2>
+
+        <p>
+          To clear all records in your database, one option is to send a separate <code>DELETE</code> request for every record in your database. Since each individual <code>DELETE</code> request is formulated using the resource type and id number of the record to delete, this means the id of every record must be known beforehand.
+        </p>
+
+        <p>
+          Alternatively, a special endpoint exists allowing users to clear their entire database in a single request. This request should be formulated with the HTTP verb <code>DELETE</code> to the url <code>/data</code>, and it does not require any request parameters.
+        </p>
+
+        <p>
+          Note that this is a <strong>destructive</strong> action, and will result in your <strong>entire database being permanently destroyed</strong>.
+        </p>
+
+        <p>
+          <pre>DELETE to /data</pre>
+        </p>
+    </section>
   </body>
 </html>

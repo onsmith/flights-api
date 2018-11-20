@@ -100,8 +100,8 @@ class ApplicationController < ActionController::API
 
     ## Pagination methods
     protected
-      DEFAULT_PAGE_SIZE = 100
-      MAX_PAGE_SIZE     = 1000
+      DEFAULT_PAGE_SIZE = 1000000
+      MAX_PAGE_SIZE     = 1000000
 
       def pagination_meta(collection)
         {

@@ -74,8 +74,9 @@ class ItinerariesController < ApplicationController
 
     def filter_params
       params.require(:filter).permit(
-        'email',
         'confirmation_code',
+        'email',
+        'info',
         id: [],
       ) rescue nil
     end

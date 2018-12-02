@@ -75,6 +75,9 @@ class AirlinesController < ApplicationController
 
     def filter_params
       params.require(:filter).permit(
+        'name',
+        'logo_url',
+        'info',
         id: [],
       ) rescue nil
     end

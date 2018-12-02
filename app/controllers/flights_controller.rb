@@ -86,6 +86,15 @@ class FlightsController < ApplicationController
 
     def filter_params
       params.require(:filter).permit(
+        'departs_at',
+        'arrives_at',
+        'number',
+        'plane_id',
+        'departure_id',
+        'arrival_id',
+        'next_flight_id',
+        'airline_id',
+        'info',
         id: [],
       ) rescue nil
     end

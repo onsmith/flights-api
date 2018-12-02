@@ -87,6 +87,7 @@ class SeatsController < ApplicationController
         'is_window',
         'is_aisle',
         'is_exit',
+        'info',
         id: [],
       ) rescue nil
     end

@@ -80,8 +80,14 @@ class AirportsController < ApplicationController
 
     def filter_params
       params.require(:filter).permit(
+        'name',
         'code',
+        'latitude',
+        'longitude',
+        'city',
         'state',
+        'city_url',
+        'info',
         id: [],
       ) rescue nil
     end

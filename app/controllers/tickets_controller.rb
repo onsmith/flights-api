@@ -94,6 +94,7 @@ class TicketsController < ApplicationController
         'instance_id',
         'itinerary_id',
         'seat_id',
+        'info',
         id: [],
       ) rescue nil
     end

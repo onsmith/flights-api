@@ -76,8 +76,10 @@ class InstancesController < ApplicationController
 
     def filter_params
       params.require(:filter).permit(
+        'flight_id',
         'date',
         'is_cancelled',
+        'info',
         id: [],
       ) rescue nil
     end

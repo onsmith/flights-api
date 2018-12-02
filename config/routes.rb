@@ -28,7 +28,15 @@ Rails.application.routes.draw do
 
 
   ## Clear data route
-  delete '/data', to: 'databases#destroy'
+  delete '/data',        to: 'databases#destroy'
+  delete '/airlines',    to: 'databases#destroy_airlines'
+  delete '/airports',    to: 'databases#destroy_airports'
+  delete '/flights',     to: 'databases#destroy_flights'
+  delete '/instances',   to: 'databases#destroy_instances'
+  delete '/itineraries', to: 'databases#destroy_itineraries'
+  delete '/planes',      to: 'databases#destroy_planes'
+  delete '/seats',       to: 'databases#destroy_seats'
+  delete '/tickets',     to: 'databases#destroy_tickets'
 
 
   ## Ember wildcard route

@@ -1,5 +1,5 @@
 class DatabasesController < ApplicationController
-  before_action :authenticate_user, only: [:destroy]
+  before_action :authenticate_user
 
 
 

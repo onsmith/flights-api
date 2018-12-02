@@ -1,6 +1,7 @@
 import csv
 import json
 import random
+from datetime import timedelta, date
 from math import cos, asin, sqrt
 
 
@@ -8,11 +9,32 @@ from math import cos, asin, sqrt
 output_file = 'seed_data.json'
 
 
+## Instance dates
+instance_start_date = date(2018, 11, 28)
+instance_end_date   = date(2019, 1, 15)
+
+
 ## Country whitelist
 country_whitelist = [
   'United States',
   #'Mexico',
   #'Canada'
+]
+
+
+## Airport whitelist
+# (Top 100 airports)
+airport_whitelist = [
+  'ATL', 'LAX', 'ORD', 'DFW', 'JFK', 'DEN', 'SFO', 'LAS', 'SEA', 'CLT',
+  'PHX', 'MIA', 'MCO', 'IAH', 'EWR', 'MSP', 'BOS', 'DTW', 'LGA', 'PHL',
+  'FLL', 'BWI', 'DCA', 'MDW', 'SLC', 'IAD', 'SAN', 'HNL', 'TPA', 'PDX',
+  'DAL', 'STL', 'BNA', 'HOU', 'AUS', 'OAK', 'MSY', 'MCI', 'RDU', 'SJC',
+  'SNA', 'SMF', 'SJU', 'IND', 'RSW', 'SAT', 'CLE', 'PIT', 'CMH', 'MKE',
+  'OGG', 'CVG', 'PBI', 'BDL', 'JAX', 'ANC', 'ABQ', 'BUF', 'OMA', 'BUR',
+  'ONT', 'MEM', 'OKC', 'CHS', 'PVD', 'RIC', 'RNO', 'BOI', 'GUM', 'SDF',
+  'ORF', 'TUS', 'GEG', 'KOA', 'ELP', 'LIH', 'ALB', 'LGB', 'TUL', 'BHM',
+  'GRR', 'SFB', 'DSM', 'ROC', 'SAV', 'DAY', 'GSP', 'PSP', 'MHT', 'SYR',
+  'MYR', 'LIT', 'PIE', 'MSN', 'TYS', 'PWM', 'GSO', 'PNS', 'ICT', 'HPN'
 ]
 
 
@@ -172,7 +194,7 @@ def filter_airports(airports, flights):
   id_whitelist   = id_whitelist_1.union(id_whitelist_2)
   return [
     a for a in airports if
-    a['country'] in country_whitelist and
+    a['code'] in airport_whitelist and
     a['id'] in id_whitelist
   ]
 
@@ -260,6 +282,51 @@ for f in flights:
   f['arrives_at'] = "%02d:%02d" % (arr_h, arr_m)
 
 
+## Helper function to randomly generate true/false according to a probability
+def bernoulli(p):
+  return random.uniform(0, 1) < p
+
+
+## Randomly generate instance schedules for each flight
+for flight in flights:
+  p = random.uniform(0, 1)
+  if p < 0.4:   # 40% Once-a-week flights
+    p = 0.2
+  elif p < 0.6: # 20% Every day flights 
+    p = 1.0
+  else:         # 40% Most days flights
+    p = 0.6
+  flight['schedule'] = [
+    bernoulli(p),
+    bernoulli(p),
+    bernoulli(p),
+    bernoulli(p),
+    bernoulli(p),
+    bernoulli(p),
+    bernoulli(p)
+  ]
+
+
+## Helper function to iterate over dates
+def daterange(start_date, end_date):
+  for n in range(int ((end_date - start_date).days)):
+    yield start_date + timedelta(n)
+
+
+## Make instances
+instances = []
+for i, single_date in enumerate(daterange(instance_start_date, instance_end_date)):
+  for j, flight in enumerate(flights):
+    flight['id'] = j
+    weekday = i % len(flight['schedule'])
+    if flight['schedule'][weekday]:
+      instances.append({
+        'flight_id': flight['id'],
+        'date': str(single_date),
+        'is_cancelled': bernoulli(0.05)
+      })
+
+
 ## Make json
 data = {
   'airlines': [{
@@ -277,6 +344,7 @@ data = {
     } for a in airports
   ],
   'flights': [{
+    'id':           f['id'],
     'departs_at':   f['departs_at'],
     'arrives_at':   f['arrives_at'],
     'number':       "%03d" % i,
@@ -290,7 +358,8 @@ data = {
     'id':   p['code'],
     'name': p['name']
     } for p in planes
-  ]
+  ],
+  'instances': instances
 }
 
 
@@ -299,8 +368,13 @@ with open(output_file, 'w') as outfile:
   json.dump(data, outfile)
 
 
+for flight in flights:
+  print([(1 if i else 0) for i in flight['schedule']])
+
+
 ## Print results
-print(len(flights),  'flights')
-print(len(airports), 'airports')
-print(len(airlines), 'airlines')
-print(len(planes),   'planes')
+print(len(flights),   'flights')
+print(len(airports),  'airports')
+print(len(airlines),  'airlines')
+print(len(planes),    'planes')
+print(len(instances), 'instances')

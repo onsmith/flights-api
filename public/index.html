@@ -128,7 +128,10 @@
             <strong>Guide:</strong> <a href="#resources">RESTful Resources</a>
           </li>
           <li>
-            <strong>Guide:</strong> <a href="#filtering">Filtering records</a>
+            <strong>Guide:</strong> <a href="#filtering">Filtering Records</a>
+          </li>
+          <li>
+            <strong>Guide:</strong> <a href="#advanced-filtering">Advanced Filtering</a>
           </li>
           <li>
             <strong>Guide:</strong> Sorting records (coming soon!)
@@ -336,7 +339,7 @@
 
 
         <section>
-          <h2 id="filtering">Filtering records</h2>
+          <h2 id="filtering">Filtering Records</h2>
 
           <p>
             One extremely useful feature available in the index route for every resource is the ability to retrieve a specific subset of records that match a certain criteria. This is often called <em>filtering</em> records, because the goal is to filter the list of results, returning a smaller list that only contains the records in which you are interested.
@@ -373,6 +376,37 @@
           <p>
             <pre>GET to /seats?filter[plane_id]=14&filter[is_window]=true</pre>
           </p>
+        </section>
+
+
+
+        <section>
+          <h2 id="advanced-filtering">Advanced Filtering</h2>
+          
+          <p>
+            Most fields in flights-api only support filtering for an exact value&mdash;by this, I mean you specify the field and the desired value, and the api will give you all records that have that value for that field.
+          </p>
+
+          <p>
+            However, you may encounter a scenerio where you want to specify a field value and search for records that have a value greater than or less than that value. For example, you may wish to find all fights that leave before (less than) 8am.
+          </p>
+
+          <p>
+            <strong>If you come across this situation, post on Piazza and let me know which resource and field on which you want to perform advanced filtering.</strong> I will do my best to add that functionality to the api.
+          </p>
+
+          <p>
+            Here is a list of fields that <strong>already</strong> have advanced filtering support.
+          </p>
+
+<pre>
+  GET to /flights?filter[departs_at_lt]=13:00  <--  flights that depart before 1pm       (less than)
+  GET to /flights?filter[departs_at_gt]=13:00  <--  flights that depart after 1pm        (greater than)
+  GET to /flights?filter[departs_at_le]=13:00  <--  flights that depart before or at 1pm (less than or equal to) 
+  GET to /flights?filter[departs_at_ge]=13:00  <--  flights that depart after or at 1pm  (greater than or equal to) 
+  GET to /flights?filter[departs_at_eq]=13:00  <--  flights that depart at 1pm exactly   (equal to)
+  GET to /flights?filter[departs_at_ne]=13:00  <--  flights that do not depart at 1pm    (not equal to)
+</pre>
         </section>
 
 

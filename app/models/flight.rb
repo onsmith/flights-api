@@ -1,4 +1,11 @@
 class Flight < ApplicationRecord
+  include Filterable
+
+
+  ## Filter scopes
+  allow_filter_by :departs_at
+
+
   ## Relationships
   belongs_to :airline, optional: true
   belongs_to :plane, optional: true

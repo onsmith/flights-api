@@ -7,6 +7,7 @@ class FlightsController < ApplicationController
   ## GET /flights
   def index
     @flights = Flight
+      .filter(scope_params)
       .where(filter_params)
       .where(records_are_accessible)
       .order(sort_params)
@@ -96,6 +97,17 @@ class FlightsController < ApplicationController
         'airline_id',
         'info',
         id: [],
+      ) rescue nil
+    end
+
+    def scope_params
+      params.require(:filter).permit(
+        'departs_at_lt',
+        'departs_at_gt',
+        'departs_at_le',
+        'departs_at_ge',
+        'departs_at_eq',
+        'departs_at_ne',
       ) rescue nil
     end
 

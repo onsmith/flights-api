@@ -104,6 +104,283 @@ plane_info = {
 }
 
 
+## Seat data
+seat_data = {
+  'Airbus A330-200': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/American_Airlines/American_Airlines_Airbus_A330-200_C.svg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 5, False, 'Business', ['A','C','F','H'], ['w','i','i','w']],
+      [ 6, 8, False, 'Premium',  ['A','B','C','D','F','G','H'], ['w','i','i','','i','i','w']],
+      [ 9,32, False, 'Economy',  ['A','B','C','D','E','F','G','H'], ['w','i','i','','','i','i','w']],
+      [33,35, False, 'Economy',  ['A','B','C','D','F','G','H'], ['w','i','i','','i','i','w']],
+      [36,36, False, 'Economy',  ['A','B','C','D','F'], ['w','i','i','','i']],
+    ]
+  },
+  'Airbus A330-300': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/American_Airlines/American_Airlines_Airbus_A330_300.svg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 7, False, 'Business', ['A','C','F','H'], ['w','i','i','w']],
+      [ 8,36, False, 'Economy',  ['A','B','C','D','E','F','G','H'], ['w','i','i','','','i','i','w']],
+      [37,40, False, 'Economy',  ['A','B','C','D','F','G','H'], ['w','i','i','','i','i','w']],
+      [41,41, False, 'Economy',  ['C','D','F'], ['i','','i']],
+    ]
+  },
+  'Boeing 767-300': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/American_Airlines/American_Airlines_Boeing_767-300.svg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 8, False, 'Business', ['A','D','G','J'], ['wi','i','i','wi']],
+      [12,13, False, 'Economy',  ['A','B','C','E','G','H','J'], ['w','i','i','','i','i','w']],
+      [17,17, False, 'Economy',  ['A','B','H','J'], ['w','i','i','w']],
+      [20,21,  True, 'Economy',  ['A','B','C','E','G','H','J'], ['w','i','i','','i','i','w']],
+      [22,41, False, 'Economy',  ['A','B','C','E','G','H','J'], ['w','i','i','','i','i','w']],
+      [42,44, False, 'Economy',  ['C','E','G'], ['i','','i']],
+    ]
+  },
+  'Airbus A319': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/American_Airlines/American_Airlines_Airbus_A319.svg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 2, False,   'First', ['A','C','D','F'], ['w','i','i','w']],
+      [ 8,13, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [14,14,  True, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [15,27, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+    ]
+  },
+  'Airbus A320': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/American_Airlines/American_Airlines_Airbus_A320.svg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 3, False,   'First', ['A','C','D','F'], ['w','i','i','w']],
+      [ 4, 9, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [10,11,  True, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [12,26, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+    ]
+  },
+  'Airbus A321': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/American_Airlines/American_Airlines_Airbus_A321_V2.svg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 4, False,   'First', ['A','C','D','F'], ['w','i','i','w']],
+      [ 8,10, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [11,11,  True, 'Economy', ['A','B','C','D','E'], ['w','','i','i','']],
+      [12,21, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [22,23, False, 'Economy', ['D','E','F'], ['i','','w']],
+      [24,24,  True, 'Economy', ['B','C','D','E'], ['','i','i','']],
+      [25,36, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+    ]
+  },
+  'Boeing 737-800': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/American_Airlines/American_Airlines_Boeing_737-800_V2.svg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 3, 6, False,   'First', ['A','B','E','F'], ['w','i','i','w']],
+      [ 7, 9, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [10,10, False, 'Economy', ['A','B','C','D','E','F'], ['','','i','i','','w']],
+      [11,13, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [14,15,  True, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [16,30, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+    ]
+  },
+  'Boeing 757-200': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/American_Airlines/American_Airlines_AA_Boeing_757-200_F.svg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 3, False,   'First', ['A','C','D','F'], ['w','i','i','w']],
+      [ 8,10, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [11,11, False, 'Economy', ['D','E','F'], ['i','','w']],
+      [12,12,  True, 'Economy', ['D','E'], ['i','']],
+      [13,13,  True, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [14,29, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [30,30,  True, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [31,37, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [38,38, False, 'Economy', ['A','B','C'], ['w','','i']],
+    ]
+  },
+  'Embraer RJ140': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/American_Airlines/American_Airlines_Embraer_ERJ-140.svg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 1,  True, 'Economy', ['A'], ['wi']],
+      [ 2, 2, False, 'Economy', ['A'], ['wi']],
+      [ 3,10, False, 'Economy', ['A','B','C'], ['wi','i','w']],
+      [11,11,  True, 'Economy', ['A','B','C'], ['wi','i','w']],
+      [12,16, False, 'Economy', ['A','B','C'], ['wi','i','w']],
+    ]
+  },
+  'Embraer RJ145': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/American_Airlines/American_Airlines_Embraer_ERJ-145.svg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 1,  True, 'Economy', ['A'], ['wi']],
+      [ 2, 2, False, 'Economy', ['A'], ['wi']],
+      [ 3,11, False, 'Economy', ['A','B','C'], ['wi','i','w']],
+      [12,12,  True, 'Economy', ['A','B','C'], ['wi','i','w']],
+      [13,18, False, 'Economy', ['A','B','C'], ['wi','i','w']],
+    ]
+  },
+  'Boeing 737-300': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/Jet2com/Jet2_Boeing_737-300.svg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 1, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [ 2,11, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [12,12,  True, 'Economy', ['B','C','D','E'], ['','i','i','']],
+      [14,14,  True, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [15,26, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+    ]
+  },
+  'Boeing 737-400': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/Alaska_Airlines/Alaska_Airlines_Boeing_737-400.svg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 3, False, 'First', ['A','C','D','F'], ['w','i','i','w']],
+      [ 6,11, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [15,15, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [16,17,  True, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [18,30, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+    ]
+  },
+  'Boeing 737-700': {
+    'seatmap_url': 'https://www.seatguru.com/airlines/Alaska_Airlines/Alaska_Airlines_Boeing_737-700.php',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 3, False, 'First', ['A','C','D','F'], ['w','i','i','w']],
+      [ 6,10, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [15,15, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [16,16,  True, 'Economy', ['B','C','D','E'], ['','i','i','']],
+      [17,17,  True, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [18,28, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+    ]
+  },
+  'Embraer 190': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/Air_Canada/Air_Canada_Embraer_190.svg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 3, False, 'Business', ['A','D','F'], ['wi','i','w']],
+      [12,18, False, 'Economy', ['A','C','D','F'], ['w','i','i','w']],
+      [19,19,  True, 'Economy', ['A','C','D','F'], ['w','i','i','w']],
+      [20,33, False, 'Economy', ['A','C','D','F'], ['w','i','i','w']],
+    ]
+  },
+  'Boeing 737-500': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/UTair_Aviation/UTair_Aviation_Boeing_737-500A.jpg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 9, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [10,10,  True, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [11,21, False, 'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+    ]
+  },
+  'De Havilland Canada DHC-8-300 Dash 8': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/Air_Canada/Air_Canada_Dash_83.svg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 1,  True, 'Economy', ['A','C','D','F'], ['w','i','i','w']],
+      [ 2, 9, False, 'Economy', ['A','C','D','F'], ['w','i','i','w']],
+      [10,10,  True, 'Economy', ['A','C','D','F'], ['w','i','i','w']],
+      [11,12, False, 'Economy', ['A','C','D','F'], ['w','i','i','w']],
+      [13,13, False, 'Economy', ['A','C'], ['w','i']],
+    ]
+  },
+  'Saab SF340A/B': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/Regional_Express/Regional_Express_SAAB_340B.jpg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 1,  True, 'Economy', ['A','B','C'], ['wi','i','w']],
+      [ 2, 2, False, 'Economy', ['A','B','C'], ['i','i','']],
+      [ 3, 5, False, 'Economy', ['A','B','C'], ['wi','i','w']],
+      [ 6, 6,  True, 'Economy', ['A','B','C'], ['wi','i','w']],
+      [ 7,11, False, 'Economy', ['A','B','C'], ['wi','i','w']],
+    ]
+  },
+  'McDonnell Douglas MD-88': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/Delta_Airlines/Delta_Airlines_MD-88_2.svg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 4, False,   'First', ['A','B','C','D'], ['w','i','i','w']],
+      [10,14, False, 'Comfort', ['A','B','C','D','E'], ['w','','i','i','w']],
+      [15,23, False, 'Economy', ['A','B','C','D','E'], ['w','','i','i','w']],
+      [24,25,  True, 'Economy', ['A','B','C','D','E'], ['w','','i','i','w']],
+      [26,31, False, 'Economy', ['A','B','C','D','E'], ['w','','i','i','w']],
+      [32,32, False, 'Economy', ['B','C','D','E'], ['','i','i','w']],
+      [33,33,  True, 'Economy', ['A','B','C','D','E'], ['w','','i','i','w']],
+      [34,35, False, 'Economy', ['A','B','C','D','E'], ['w','','i','i','w']],
+      [36,36, False, 'Economy', ['A','B','D','E'], ['w','i','i','w']],
+    ]
+  },
+  'McDonnell Douglas MD-90': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/Delta_Airlines/Delta_Airlines_MD-90.svg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 4, False,   'First', ['A','B','C','D'], ['w','i','i','w']],
+      [10,14, False, 'Comfort', ['A','B','C','D','E'], ['w','i','i','','w']],
+      [15,24, False, 'Economy', ['A','B','C','D','E'], ['w','i','i','','w']],
+      [25,25,  True, 'Economy', ['B','C','D'], ['i','i','']],
+      [26,27,  True, 'Economy', ['A','B','C','D','E'], ['w','i','i','','w']],
+      [28,33, False, 'Economy', ['A','B','C','D','E'], ['w','i','i','','w']],
+      [34,35, False, 'Economy', ['C','D','E'], ['i','','w']],
+      [36,38, False, 'Economy', ['A','B','C','D','E'], ['w','i','i','','w']],
+      [39,39, False, 'Economy', ['C','D','E'], ['i','','w']],
+    ]
+  },
+  'Aerospatiale/Alenia ATR 72': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/Jet_Airways/Jet_Airways_ATR72.jpg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 1,  True, 'Economy', ['A','C','D','F'], ['w','i','i','w']],
+      [ 2,16, False, 'Economy', ['A','C','D','F'], ['w','i','i','w']],
+      [17,17, False, 'Economy', ['A','C'], ['w','i']],
+    ]
+  },
+  'Boeing 777': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/American_Airlines/American_Airlines_Boeing_777-200_B.svg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 5, False, 'Business', ['A','D','H','L'], ['w','i','i','w']],
+      [ 6, 6, False, 'Business', ['L'], ['w']],
+      [ 7,12, False, 'Business', ['A','D','H','L'], ['w','i','i','w']],
+      [13,21, False,  'Economy', ['A','B','C','D','E','H','J','K','L'], ['w','','i','i','','i','i','','w']],
+      [22,22, False, 'Economy', ['A','B'], ['w','i']],
+      [26,26,  True, 'Economy', ['A','B','C','D','E','G','H','J','K','L'], ['w','','i','i','','','i','i','','w']],
+      [27,35, False, 'Economy', ['A','B','C','D','E','G','H','J','K','L'], ['w','','i','i','','','i','i','','w']],
+      [36,38, False, 'Economy', ['A','C','D','E','G','H','J','L'], ['w','i','i','','','i','i','w']],
+      [39,40, False, 'Economy', ['D','E','G','H'], ['i','','','i']],
+    ]
+  },
+  'Boeing 787-8': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/American_Airlines/American_Airlines_Boeing_787-8.svg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 7, False, 'Business', ['A','D','H','L'], ['w','i','i','w']],
+      [ 8,17, False,  'Economy', ['A','B','C','D','E','H','J','K','L'], ['w','','i','i','','i','i','','w']],
+      [18,18, False,  'Economy', ['A','B','D','E','H','K','L'], ['w','i','i','','i','i','w']],
+      [19,19,  True,  'Economy', ['A','B','C','J','K','L'], ['w','','i','i','','w']],
+      [20,28, False,  'Economy', ['A','B','C','D','E','H','J','K','L'], ['w','','i','i','','i','i','','w']],
+      [29,30, False,  'Economy', ['A','C','D','E','H','J','L'], ['w','i','i','','i','i','w']],
+    ]
+  },
+  'Boeing 757': {
+    'seatmap_url': 'https://cdn.seatguru.com/en_US/img/20181116212442/seatguru/airlines_new/American_Airlines/American_Airlines_Boeing_757-200_MCE_Intl_new.svg',
+    'seats': [
+      # row_start, row_end, is_exit, class, number, isle/window
+      [ 1, 4, False, 'Business', ['A','B','E','F'], ['w','i','i','w']],
+      [ 9, 9,  True,  'Economy', ['B','C','D','E'], ['','i','i','']],
+      [10,16, False,  'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [17,18,  True,  'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+      [19,36, False,  'Economy', ['A','B','C','D','E','F'], ['w','','i','i','','w']],
+    ]
+  },
+}
+
+
+## Helper function to randomly generate true/false according to a probability
+def bernoulli(p):
+  return random.uniform(0, 1) < p
+
+
 ## Reads planes into list
 def read_planes(filename, fields):
   planes = []
@@ -165,11 +442,6 @@ def read_flights(filename, fields):
   return flights
 
 
-## Utility functions
-def sort_by(a, k, r=False):
-  return sorted(a, key=lambda x: x[k], reverse=r)
-
-
 ## Read data
 airlines = read_airlines(airline_info['filename'], airline_info['csv_fields'])
 airports = read_airports(airport_info['filename'], airport_info['csv_fields'])
@@ -177,14 +449,30 @@ flights  =  read_flights(flight_info['filename'],  flight_info['csv_fields'])
 planes   =   read_planes(plane_info['filename'],   plane_info['csv_fields'])
 
 
+## Remove inactive airlines
+airlines = [a for a in airlines if a['active'] == 'Y']
+
+
+## Whitelist airports
+airports = [a for a in airports if a['code'] in airport_whitelist]
+
+
+## Remove flights with multiple stops
+flights = [f for f in flights if f['stops'] == '0']
+
+
+## Remove flights that use multiple airplanes
+flights = [f for f in flights if len(f['equipment']) == 1]
+
+
+## Remove planes without seats
+planes = [p for p in planes if p['name'] in list(seat_data.keys())]
+
+
 ## Airline filter function
 def filter_airlines(airlines, flights):
   id_whitelist = set(f['airline_id'] for f in flights)
-  return [
-    a for a in airlines if
-    a['active'] and
-    a['id'] in id_whitelist
-  ]
+  return [a for a in airlines if a['id'] in id_whitelist]
 
 
 ## Airport filter function
@@ -192,20 +480,13 @@ def filter_airports(airports, flights):
   id_whitelist_1 = set(f['departure_id'] for f in flights)
   id_whitelist_2 = set(f['arrival_id']   for f in flights)
   id_whitelist   = id_whitelist_1.union(id_whitelist_2)
-  return [
-    a for a in airports if
-    a['code'] in airport_whitelist and
-    a['id'] in id_whitelist
-  ]
+  return [a for a in airports if a['id'] in id_whitelist]
 
 
 ## Plane filter function
 def filter_planes(planes, flights):
   code_whitelist = set(f['equipment'][0] for f in flights)
-  return [
-    p for p in planes if
-    p['code'] in code_whitelist
-  ]
+  return [p for p in planes if p['code'] in code_whitelist]
 
 
 ## Flight filter function
@@ -218,8 +499,6 @@ def filter_flights(flights):
     f['departure_id'] in airport_id_whitelist and
     f['arrival_id'] in airport_id_whitelist and
     f['airline_id'] in airline_id_whitelist and
-    f['stops'] == '0' and
-    len(f['equipment']) == 1 and
     f['equipment'][0] in plane_code_whitelist
   ]
 
@@ -282,11 +561,6 @@ for f in flights:
   f['arrives_at'] = "%02d:%02d" % (arr_h, arr_m)
 
 
-## Helper function to randomly generate true/false according to a probability
-def bernoulli(p):
-  return random.uniform(0, 1) < p
-
-
 ## Randomly generate instance schedules for each flight
 for flight in flights:
   p = random.uniform(0, 1)
@@ -327,6 +601,25 @@ for i, single_date in enumerate(daterange(instance_start_date, instance_end_date
       })
 
 
+## Make seats
+seats = []
+for plane_name, data in seat_data.items():
+  plane = [p for p in planes if p['name'] == plane_name][0]
+  plane['seatmap_url'] = data['seatmap_url']
+  for seat in data['seats']:
+    for row in range(seat[0], seat[1]+1):
+      for number in range(len(seat[4])):
+        seats.append({
+          'plane_id': plane['code'],
+          'row': row,
+          'number': seat[4][number],
+          'cabin': seat[3],
+          'is_window': ('w' in seat[5][number]),
+          'is_aisle': ('i' in seat[5][number]),
+          'is_exit': seat[2]
+        })
+
+
 ## Make json
 data = {
   'airlines': [{
@@ -359,7 +652,8 @@ data = {
     'name': p['name']
     } for p in planes
   ],
-  'instances': instances
+  'instances': instances,
+  'seats': seats
 }
 
 
@@ -368,13 +662,10 @@ with open(output_file, 'w') as outfile:
   json.dump(data, outfile)
 
 
-for flight in flights:
-  print([(1 if i else 0) for i in flight['schedule']])
-
-
 ## Print results
 print(len(flights),   'flights')
 print(len(airports),  'airports')
 print(len(airlines),  'airlines')
 print(len(planes),    'planes')
 print(len(instances), 'instances')
+print(len(seats), 'seats')

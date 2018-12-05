@@ -246,7 +246,7 @@
         *          converted into real database ids
         */
         function matchInstanceData(data) {
-          // First, organize planes into hashes so we can quickly look them up
+          // First, organize flights into hashes so we can quickly look them up
           //   by their fake ids
           const flights = {};
           data.flights.forEach(function(flight) {
@@ -260,6 +260,37 @@
 
           // All done
           return data.instances;
+        }
+
+
+        /**
+        * The input to this function should be the seed data downloaded from
+        *   the JSON file. However, each plane should be augmented with a
+        *   "db_id" field representing the actual id stored in the flights-api
+        *   database for that record. This function replaces the fake foreign
+        *   key stored in each instance with the corresponding real flights-api
+        *   database id.
+        * 
+        * @param data  The augmented seed data
+        * 
+        * @return  Returns a copy of data.seats except with foreign key ids
+        *          converted into real database ids
+        */
+        function matchSeatData(data) {
+          // First, organize planes into hashes so we can quickly look them up
+          //   by their fake ids
+          const planes = {};
+          data.planes.forEach(function(plane) {
+            planes[plane.id] = plane;
+          });
+
+          // Now, replace the foreign keys with the real database ids
+          data.seats.forEach(function(seat) {
+            seat.plane_id = planes[seat.plane_id].db_id;
+          });
+
+          // All done
+          return data.seats;
         }
 
 
@@ -283,6 +314,8 @@
             return 'planes';
           } else if ($target.closest('.instances-control-panel').length > 0) {
             return 'instances';
+          } else if ($target.closest('.seats-control-panel').length > 0) {
+            return 'seats';
           } else {
             return '';
           }
@@ -375,6 +408,17 @@
 
 
         /**
+          * Checks to see if planes have been seeded
+          * 
+          * @return  Returns true or false based on whether the planes have
+          *          been seeded
+          */
+        function arePlanesSeeded() {
+          return !!seedData.planes[0].db_id;
+        }
+
+
+        /**
         * Handle seed buttons
         */
         $('.seed-button').click(function(e) {
@@ -400,6 +444,13 @@
               matchInstanceData(seedData);
             } else {
               $message.html('<strong class="text-danger">You must seed flights before seeding instances.</strong>');
+              return false;
+            }
+          } else if (resources == 'seats') {
+            if (arePlanesSeeded()) {
+              matchSeatData(seedData);
+            } else {
+              $message.html('<strong class="text-danger">You must seed planes before seeding seats.</strong>');
               return false;
             }
           }
@@ -573,7 +624,7 @@
 
 
           <div class="resource-control-panel airlines-control-panel bg-dark text-white p-3 mt-5 mb-5">
-            <h4>Airlines (45 Records)</h4>
+            <h4>Airlines (38 Records)</h4>
 
             <p class="text-right">
               <button class="btn btn-info mr-3 ml-3 seed-button">
@@ -619,7 +670,7 @@
 
 
           <div class="resource-control-panel planes-control-panel bg-dark text-white p-3 mt-5 mb-5">
-            <h4>Planes (36 Records)</h4>
+            <h4>Planes (23 Records)</h4>
 
             <p class="text-right">
               <button class="btn btn-info mr-3 ml-3 seed-button">
@@ -642,7 +693,9 @@
 
 
           <div class="resource-control-panel flights-control-panel bg-dark text-white p-3 mt-5">
-            <h4>Flights (2,268 Records)</h4>
+            <h4>Flights (1,645 Records)</h4>
+
+            <p>Note: Airlines, airports, and planes must be seeded before you can seed flights.</p>
 
             <p class="text-right">
               <button class="btn btn-info mr-3 ml-3 seed-button">
@@ -665,7 +718,9 @@
 
 
           <div class="resource-control-panel instances-control-panel bg-dark text-white p-3 mt-5">
-            <h4>Instances (56,310 Records)</h4>
+            <h4>Instances (40,736 Records)</h4>
+
+            <p>Note: Flights must be seeded before you can seed instances.</p>
 
             <p class="text-right">
               <button class="btn btn-info mr-3 ml-3 seed-button">
@@ -674,6 +729,31 @@
 
               <button type="button" class="btn btn-danger mr-3 ml-3 clear-button">
                 Clear Instances
+              </button>
+            </p>
+
+            <p class="resource-message"></p>
+
+            <p class="clearfix">
+              <div class="progress">
+                <div class="progress-bar">0%</div>
+              </div>
+            </p>
+          </div>
+
+
+          <div class="resource-control-panel seats-control-panel bg-dark text-white p-3 mt-5">
+            <h4>Seats (3427 Records)</h4>
+
+            <p>Note: Planes must be seeded before you can seed seats.</p>
+
+            <p class="text-right">
+              <button class="btn btn-info mr-3 ml-3 seed-button">
+                Seed Seats
+              </button>
+
+              <button type="button" class="btn btn-danger mr-3 ml-3 clear-button">
+                Clear Seats
               </button>
             </p>
 

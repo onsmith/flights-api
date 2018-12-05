@@ -20,7 +20,7 @@ class Ticket < ApplicationRecord
            :seat_must_be_accessible
 
   def instance_must_be_accessible
-    if instance.user.present? && instance.user != user
+    if instance.present? && instance.user.present? && instance.user != user
       errors.add(:instance_id, "does not exist")
     end
   end

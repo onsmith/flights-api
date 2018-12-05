@@ -649,7 +649,8 @@ data = {
   ],
   'planes': [{
     'id':   p['code'],
-    'name': p['name']
+    'name': p['name'],
+    'seatmap_url': p['seatmap_url'],
     } for p in planes
   ],
   'instances': instances,

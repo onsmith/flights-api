@@ -1,8 +1,8 @@
 class Ticket < ApplicationRecord
   ## Relationships
-  belongs_to :instance
+  belongs_to :instance, optional: true
   belongs_to :itinerary, optional: true
-  belongs_to :seat
+  belongs_to :seat, optional: true
 
   belongs_to :user, optional: true
 
@@ -12,8 +12,6 @@ class Ticket < ApplicationRecord
   validates :last_name,  presence: true
   validates :age,        numericality: { only_integer: true, greater_than: 0 }
   validates :gender,     presence: true
-  validates :seat,       presence: true
-  validates :instance,   presence: true
 
   validate :instance_must_be_accessible,
            :itinerary_must_be_accessible,

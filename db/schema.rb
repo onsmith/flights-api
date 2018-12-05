@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181105235724) do
+ActiveRecord::Schema.define(version: 20181205163150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,8 +119,8 @@ ActiveRecord::Schema.define(version: 20181105235724) do
     t.string "gender", null: false
     t.float "is_purchased", default: 0.0, null: false
     t.float "price_paid"
-    t.bigint "seat_id", null: false
-    t.bigint "instance_id", null: false
+    t.bigint "seat_id"
+    t.bigint "instance_id"
     t.bigint "itinerary_id"
     t.bigint "user_id"
     t.text "info"

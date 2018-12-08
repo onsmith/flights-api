@@ -13,6 +13,20 @@ class ApplicationController < ActionController::API
 
 
 
+  # Require JSON requests
+  # before_action :ensure_json_request
+  # def ensure_json_request
+  #   if !params.empty? && request.format != :json
+  #     render json: {
+  #       status: 406,
+  #       error: 'Not acceptable',
+  #       exception: 'This api only accepts request data using json content-type'
+  #     }, status: 406
+  #   end
+  # end
+
+
+
   ## Handle Pundit unauthorized exceptions
   rescue_from Pundit::NotAuthorizedError, with: :action_forbidden
   private

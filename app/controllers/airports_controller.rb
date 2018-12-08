@@ -7,6 +7,7 @@ class AirportsController < ApplicationController
   ## GET /airports
   def index
     @airports = Airport
+      .filter(scope_params)
       .where(filter_params)
       .where(records_are_accessible)
       .order(sort_params)
@@ -89,6 +90,15 @@ class AirportsController < ApplicationController
         'city_url',
         'info',
         id: [],
+      ) rescue nil
+    end
+
+    def scope_params
+      params.require(:filter).permit(
+        'code_like',
+        'code_ilike',
+        'name_like',
+        'name_ilike',
       ) rescue nil
     end
 

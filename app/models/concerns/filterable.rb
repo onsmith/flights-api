@@ -14,12 +14,14 @@ module Filterable
 
     def allow_filter_by(field)
       field = field.to_s
-      scope field + '_gt', -> (t) { where field + " > ?", t }
-      scope field + '_ge', -> (t) { where field + " >= ?", t }
-      scope field + '_lt', -> (t) { where field + " < ?", t }
-      scope field + '_le', -> (t) { where field + " <= ?", t }
-      scope field + '_eq', -> (t) { where field + " = ?", t }
-      scope field + '_ne', -> (t) { where field + " != ?", t }
+      scope field + '_gt',    -> (t) { where field + " > ?", t }
+      scope field + '_ge',    -> (t) { where field + " >= ?", t }
+      scope field + '_lt',    -> (t) { where field + " < ?", t }
+      scope field + '_le',    -> (t) { where field + " <= ?", t }
+      scope field + '_eq',    -> (t) { where field + " = ?", t }
+      scope field + '_ne',    -> (t) { where field + " != ?", t }
+      scope field + '_like',  -> (t) { where field + " LIKE ?", "%#{t}%" }
+      scope field + '_ilike', -> (t) { where field + " ILIKE ?", "%#{t}%" }
     end
   end
 end

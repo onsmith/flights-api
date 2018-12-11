@@ -402,10 +402,16 @@
 <pre>
   GET to /flights?filter[departs_at_lt]=13:00  <--  flights that depart before 1pm       (less than)
   GET to /flights?filter[departs_at_gt]=13:00  <--  flights that depart after 1pm        (greater than)
-  GET to /flights?filter[departs_at_le]=13:00  <--  flights that depart before or at 1pm (less than or equal to) 
-  GET to /flights?filter[departs_at_ge]=13:00  <--  flights that depart after or at 1pm  (greater than or equal to) 
+  GET to /flights?filter[departs_at_le]=13:00  <--  flights that depart before or at 1pm (less than or equal to)
+  GET to /flights?filter[departs_at_ge]=13:00  <--  flights that depart after or at 1pm  (greater than or equal to)
   GET to /flights?filter[departs_at_eq]=13:00  <--  flights that depart at 1pm exactly   (equal to)
   GET to /flights?filter[departs_at_ne]=13:00  <--  flights that do not depart at 1pm    (not equal to)
+
+  GET to /airports?filter[name_like]=Logan     <--  airports with "Logan" in their name  (case-sensitive)
+  GET to /airports?filter[name_ilike]=logan    <--  airports with "logan" in their name  (case-insensitive)
+
+  GET to /airports?filter[code_like]=RD        <--  airports with "RD" in their code     (case-sensitive)
+  GET to /airports?filter[code_ilike]=rd       <--  airports with "rd" in their code     (case-insensitive)
 </pre>
         </section>
 

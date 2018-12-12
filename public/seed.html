@@ -622,6 +622,22 @@
             Feel free to save this HTML file and the JSON file on your computer and modify them to add your own custom data to the database.
           </p>
 
+          <h3 class="text-danger">
+            There is now an endpoint that will seed your entire database in 5 minutes with a single request!
+          </h3>
+
+          <p>
+            To use it, send the following request with the <a href="/rest_test.html" target="_blank" rel="nofollow">REST Test Tool</a>: POST to http://comp426.cs.unc.edu:3001/data/seed
+          </p>
+
+          <p>
+            The new endpoint takes about 5 minutes to complete, and seeds your database with the same data as this script: airlines, airports, planes, flights, instances, and seats.
+          </p>
+
+          <p>
+            Here's the catch: <strong>it will clear all existing airlines, airports, planes, flights, instances, and seats.</strong> Also, there is no way to select only a subset of records; you either get all six resources or none of them.
+          </p>
+
 
           <div class="resource-control-panel airlines-control-panel bg-dark text-white p-3 mt-5 mb-5">
             <h4>Airlines (38 Records)</h4>

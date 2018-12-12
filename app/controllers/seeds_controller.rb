@@ -29,7 +29,7 @@ class SeedsController < ApplicationController
   end
 
   def load_data_from_seed_file
-    @data = JSON.parse(File.read('public/seed_data.json'))
+    @data = JSON.parse(File.read('/srv/flights-api/public/seed_data.json'))
   end
 
   def insert_airlines

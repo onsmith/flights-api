@@ -11,6 +11,10 @@ class Seat < ApplicationRecord
   validates :number, presence: true
   validates :plane,  presence: true
 
+  validates :is_window, inclusion: { in: [ true, false ] }, on: :update
+  validates :is_aisle,  inclusion: { in: [ true, false ] }, on: :update
+  validates :is_exit,   inclusion: { in: [ true, false ] }, on: :update
+
   validate :plane_must_be_accessible
 
   def plane_must_be_accessible

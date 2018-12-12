@@ -7,6 +7,8 @@ class Instance < ApplicationRecord
 
 
   ## Validations
+  validates :is_cancelled, inclusion: { in: [ true, false ] }, on: :update
+
   validates :date, presence: true
   validates :flight, presence: true
 

@@ -7,6 +7,7 @@ class Instance < ApplicationRecord
 
 
   ## Validations
+  validates :date, presence: true
   validates :flight, presence: true
 
   validate :flight_must_be_accessible

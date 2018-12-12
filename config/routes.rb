@@ -41,7 +41,7 @@ Rails.application.routes.draw do
 
 
   ## Bulk seed route
-  post '/seed', to: 'seeds#create'
+  post 'data/seed', to: 'seeds#create'
 
 
   ## Ember wildcard route

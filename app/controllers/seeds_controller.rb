@@ -20,13 +20,11 @@ class SeedsController < ApplicationController
 
   private
   def erase_prior_data
-    Ticket.where(user: current_user).delete_all
-    Itinerary.where(user: current_user).delete_all
     Seat.where(user: current_user).delete_all
     Instance.where(user: current_user).delete_all
     Flight.where(user: current_user).delete_all
-    Airport.where(user: current_user).delete_all
     Plane.where(user: current_user).delete_all
+    Airport.where(user: current_user).delete_all
     Airline.where(user: current_user).delete_all
   end
 

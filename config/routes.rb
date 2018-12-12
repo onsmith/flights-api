@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   ## Clear data route
   delete '/data',             to: 'databases#destroy'
+
   delete '/data/airlines',    to: 'databases#destroy_airlines'
   delete '/data/airports',    to: 'databases#destroy_airports'
   delete '/data/flights',     to: 'databases#destroy_flights'
@@ -37,6 +38,10 @@ Rails.application.routes.draw do
   delete '/data/planes',      to: 'databases#destroy_planes'
   delete '/data/seats',       to: 'databases#destroy_seats'
   delete '/data/tickets',     to: 'databases#destroy_tickets'
+
+
+  ## Bulk seed route
+  post '/seed', to: 'seeds#create'
 
 
   ## Ember wildcard route

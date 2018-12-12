@@ -35,24 +35,30 @@ class SeedsController < ApplicationController
   def insert_airlines
     @airline_ids = {}
     @data['airlines'].each do |p|
-      airline = Airline.create!(p.except 'id')
-      @airline_ids[p['id']] = airline.id
+      pp = p.clone
+      pp['user_id'] = current_user.id
+      airline = Airline.create!(pp.except 'id')
+      @airline_ids[pp['id']] = airline.id
     end
   end
 
   def insert_airports
     @airport_ids = {}
     @data['airports'].each do |p|
-      airport = Airport.create!(p.except 'id')
-      @airport_ids[p['id']] = airport.id
+      pp = p.clone
+      pp['user_id'] = current_user.id
+      airport = Airport.create!(pp.except 'id')
+      @airport_ids[pp['id']] = airport.id
     end
   end
 
   def insert_planes
     @plane_ids = {}
     @data['planes'].each do |p|
-      plane = Plane.create!(p.except 'id')
-      @plane_ids[p['id']] = plane.id
+      pp = p.clone
+      pp['user_id'] = current_user.id
+      plane = Plane.create!(pp.except 'id')
+      @plane_ids[pp['id']] = plane.id
     end
   end
 
@@ -60,6 +66,7 @@ class SeedsController < ApplicationController
     @flight_ids = {}
     @data['flights'].each do |p|
       pp = p.clone
+      pp['user_id'] = current_user.id
       pp['departure_id'] = @airport_ids[pp['departure_id']]
       pp['arrival_id']   = @airport_ids[pp['arrival_id']]
       pp['airline_id']   = @airline_ids[pp['airline_id']]
@@ -73,6 +80,7 @@ class SeedsController < ApplicationController
     @instance_ids = {}
     @data['instances'].each do |p|
       pp = p.clone
+      pp['user_id'] = current_user.id
       pp['flight_id'] = @flight_ids[pp['flight_id']]
       instance = Instance.create!(pp.except 'id')
       @instance_ids[pp['id']] = instance.id
@@ -83,6 +91,7 @@ class SeedsController < ApplicationController
     @seat_ids = {}
     @data['seats'].each do |p|
       pp = p.clone
+      pp['user_id'] = current_user.id
       pp['plane_id'] = @plane_ids[pp['plane_id']]
       seat = Seat.create!(pp.except 'id')
       @seat_ids[pp['id']] = seat.id

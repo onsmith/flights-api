@@ -13,7 +13,7 @@ class Instance < ApplicationRecord
   validate :flight_must_be_accessible
 
   def flight_must_be_accessible
-    if flight.user.present? && flight.user != user
+    if flight.present? && flight.user.present? && flight.user != user
       errors.add(:flight_id, "does not exist")
     end
   end
